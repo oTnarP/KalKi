@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/kalki_models.dart';
+import '../translations.dart';
 
 class KalKiProvider extends ChangeNotifier {
   // Mock Data
@@ -70,6 +71,15 @@ class KalKiProvider extends ChangeNotifier {
   bool _isMarketMode = false;
   final Set<String> _checkedItems = {};
 
+  // Water Reminder State
+  bool _waterReminderEnabled = false;
+  int _waterReminderFrequency = 1; // Hours
+
+  // New Features State
+  int _guestCount = 0;
+  bool _isDarkMode = false;
+  bool _isBangla = false;
+
   KalKiProvider() {
     _generateTomorrowPlan();
   }
@@ -78,13 +88,18 @@ class KalKiProvider extends ChangeNotifier {
   List<RoutineItem> get essentials => _essentials;
   bool get isMarketMode => _isMarketMode;
   Set<String> get checkedItems => _checkedItems;
+  bool get waterReminderEnabled => _waterReminderEnabled;
+  int get waterReminderFrequency => _waterReminderFrequency;
+  int get guestCount => _guestCount;
+  bool get isDarkMode => _isDarkMode;
+  bool get isBangla => _isBangla;
 
   void _generateTomorrowPlan() {
     // Simple mock logic: Randomly pick lunch and dinner
     _tomorrowPlan = DayPlan(
       date: DateTime.now().add(const Duration(days: 1)),
       lunch: _allDishes[0], // Beef Bhuna
-      dinner: _allDishes[3], // Lal Shak
+      dinner: _allDishes[0], // Beef Bhuna (Same as Lunch)
       snack: _allDishes[6], // Singara
     );
     notifyListeners();
@@ -96,10 +111,9 @@ class KalKiProvider extends ChangeNotifier {
     // Rotate dishes for demo
     var currentLunchIndex = _allDishes.indexOf(_tomorrowPlan.lunch!);
     var nextLunchIndex = (currentLunchIndex + 1) % _allDishes.length;
-    var nextDinnerIndex = (currentLunchIndex + 2) % _allDishes.length;
-
+    // Keep Dinner same as Lunch
     _tomorrowPlan.lunch = _allDishes[nextLunchIndex];
-    _tomorrowPlan.dinner = _allDishes[nextDinnerIndex];
+    _tomorrowPlan.dinner = _allDishes[nextLunchIndex];
     notifyListeners();
   }
 
@@ -132,6 +146,37 @@ class KalKiProvider extends ChangeNotifier {
 
   bool isItemChecked(String key) {
     return _checkedItems.contains(key);
+  }
+
+  void toggleWaterReminder(bool value) {
+    _waterReminderEnabled = value;
+    notifyListeners();
+  }
+
+  void setWaterReminderFrequency(int hours) {
+    _waterReminderFrequency = hours;
+    notifyListeners();
+  }
+
+  void updateGuestCount(int count) {
+    if (count < 0) return;
+    _guestCount = count;
+    notifyListeners();
+  }
+
+  void toggleDarkMode(bool value) {
+    _isDarkMode = value;
+    notifyListeners();
+  }
+
+  void toggleLanguage(bool isBangla) {
+    _isBangla = isBangla;
+    notifyListeners();
+  }
+
+  String t(String key) {
+    String langCode = _isBangla ? 'bn' : 'en';
+    return AppTranslations.localizedValues[langCode]?[key] ?? key;
   }
 
   // Get specific ingredient list for market

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../providers/kalki_provider.dart';
 import '../theme.dart';
 import '../models/kalki_models.dart';
@@ -11,199 +12,185 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('KalKi'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => const ManageBottomSheet(),
-              );
-            },
+    return Consumer<KalKiProvider>(
+      builder: (context, provider, child) {
+        final plan = provider.tomorrowPlan;
+
+        return Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.shopping_basket_outlined,
+                color: AppTheme.primaryColor,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MarketModeScreen(),
+                  ),
+                );
+              },
+            ),
+            centerTitle: true,
+            title: RichText(
+              text: TextSpan(
+                style: GoogleFonts.poppins(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                ),
+                children: const [
+                  TextSpan(
+                    text: 'Kal',
+                    style: TextStyle(color: AppTheme.primaryColor),
+                  ),
+                  TextSpan(
+                    text: 'Ki',
+                    style: TextStyle(color: AppTheme.accentColor),
+                  ),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 2, bottom: 4),
+                      child: Icon(
+                        Icons.circle,
+                        size: 8,
+                        color: AppTheme.primaryColor,
+                      ),
+                    ),
+                    alignment: PlaceholderAlignment.baseline,
+                    baseline: TextBaseline.alphabetic,
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              // Settings Icon directly in AppBar
+              IconButton(
+                icon: const Icon(Icons.settings, color: Colors.grey),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => const ManageBottomSheet(),
+                  );
+                },
+              ),
+              const SizedBox(width: 8),
+            ],
           ),
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                ConstrainedBox(
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Consumer<KalKiProvider>(
-                            builder: (context, provider, child) {
-                              final plan = provider.tomorrowPlan;
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _buildDateHeader(plan),
-                                  const SizedBox(height: 16),
-                                  // Tomorrow's Menu Section
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Tomorrow\'s Menu',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppTheme.textPrimary,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.shopping_basket_outlined,
-                                            size: 20,
-                                            color: AppTheme.primaryColor,
-                                          ),
-                                          tooltip: 'Market Mode',
-                                          constraints: const BoxConstraints(),
-                                          padding: const EdgeInsets.all(8),
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MarketModeScreen(),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  _buildDishCard(
-                                    context,
-                                    'Lunch',
-                                    plan.lunch,
-                                    Colors.orange[50]!,
-                                  ),
-                                  _buildDishCard(
-                                    context,
-                                    'Dinner',
-                                    plan.dinner,
-                                    Colors.blue[50]!,
-                                  ),
-                                  if (plan.snack != null)
-                                    _buildDishCard(
-                                      context,
-                                      'Snack',
-                                      plan.snack,
-                                      Colors.purple[50]!,
-                                    ),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
+                      // Header Date
+                      _buildDateHeader(context, plan, provider),
+
+                      // Main Content (Hero)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Main Meal Card (Lunch & Dinner)
+                            _buildMainDishCard(
+                              context,
+                              "${provider.t('lunch')} & ${provider.t('dinner')}",
+                              plan.lunch,
+                              provider.isDarkMode,
+                            ),
+                            const SizedBox(height: 16),
+                            // Small Snack Card
+                            if (plan.snack != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: _buildDishCard(
+                                  context,
+                                  provider.t('snack'),
+                                  plan.snack,
+                                  provider.isDarkMode
+                                      ? Colors.purple.withValues(alpha: 0.15)
+                                      : Colors.purple[50]!,
+                                  provider.isDarkMode,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
-                      Consumer<KalKiProvider>(
-                        builder: (context, provider, child) {
-                          final plan = provider.tomorrowPlan;
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 24,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: OutlinedButton.icon(
-                                    onPressed: plan.isLocked
-                                        ? provider.unlockPlan
-                                        : provider.lockPlan,
-                                    icon: Icon(
-                                      plan.isLocked
-                                          ? Icons.lock
-                                          : Icons.lock_open,
-                                    ),
-                                    label: Text(
-                                      plan.isLocked
-                                          ? 'Unlock Plan'
-                                          : 'Lock Plan',
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor: plan.isLocked
-                                          ? Colors.grey
-                                          : AppTheme.primaryColor,
-                                      side: BorderSide(
-                                        color: plan.isLocked
-                                            ? Colors.grey
-                                            : AppTheme.primaryColor,
-                                      ),
-                                    ),
+
+                      // Actions
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 32,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                onPressed: plan.isLocked
+                                    ? provider.unlockPlan
+                                    : provider.lockPlan,
+                                icon: Icon(
+                                  plan.isLocked ? Icons.lock : Icons.lock_open,
+                                ),
+                                label: Text(
+                                  plan.isLocked
+                                      ? provider.t('unlock_plan')
+                                      : provider.t('lock_plan'),
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  foregroundColor: plan.isLocked
+                                      ? Colors.grey
+                                      : AppTheme.primaryColor,
+                                  side: BorderSide(
+                                    color: plan.isLocked
+                                        ? Colors.grey
+                                        : AppTheme.primaryColor,
                                   ),
                                 ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: ElevatedButton.icon(
-                                    onPressed: plan.isLocked
-                                        ? null
-                                        : provider.regeneratePlan,
-                                    icon: const Icon(Icons.refresh),
-                                    label: const Text('Change'),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: plan.isLocked
-                                          ? Colors.grey[300]
-                                          : AppTheme.primaryColor,
-                                      foregroundColor: plan.isLocked
-                                          ? Colors.grey
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          );
-                        },
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: ElevatedButton.icon(
+                                onPressed: plan.isLocked
+                                    ? null
+                                    : provider.regeneratePlan,
+                                icon: const Icon(Icons.refresh),
+                                label: Text(provider.t('change')),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  backgroundColor: plan.isLocked
+                                      ? Colors.grey[300]
+                                      : AppTheme.primaryColor,
+                                  foregroundColor: plan.isLocked
+                                      ? Colors.grey
+                                      : Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Consumer<KalKiProvider>(
-                  builder: (context, provider, child) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(height: 32),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                            'Bazaar List',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppTheme.textPrimary,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        _buildBazaarPreview(provider),
-                        const SizedBox(height: 40),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -224,7 +211,107 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildDateHeader(DayPlan plan) {
+  Widget _buildMainDishCard(
+    BuildContext context,
+    String mealType,
+    Dish? dish,
+    bool isDarkMode,
+  ) {
+    if (dish == null) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardTheme.color,
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: isDarkMode
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.grey[200]!,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: isDarkMode
+                  ? AppTheme.primaryColor.withValues(alpha: 0.2)
+                  : AppTheme.primaryColor.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              _getCategoryIcon(dish.category),
+              color: AppTheme.primaryColor,
+              size: 48, // Big Hero Icon
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            mealType.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.0,
+              color: AppTheme.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            dish.name,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 28, // Hero Text
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+            ),
+          ),
+          const SizedBox(height: 16),
+          if (dish.ingredients.isNotEmpty)
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: dish.ingredients
+                  .map(
+                    (e) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isDarkMode
+                            ? Colors.white.withValues(alpha: 0.05)
+                            : Colors.grey[100],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        e.name,
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateHeader(
+    BuildContext context,
+    DayPlan plan,
+    KalKiProvider provider,
+  ) {
     // Simple date formatting
     final now = DateTime.now();
     final tomorrow = now.add(const Duration(days: 1));
@@ -235,9 +322,9 @@ class HomeScreen extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          const Text(
-            'PLANNING FOR',
-            style: TextStyle(
+          Text(
+            provider.t('planning_for'),
+            style: const TextStyle(
               fontSize: 12,
               letterSpacing: 2, // Capitalized tracking
               color: AppTheme.textSecondary,
@@ -246,11 +333,11 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Tomorrow, $dateStr',
-            style: const TextStyle(
+            '${provider.t('tomorrow')}, $dateStr',
+            style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w300, // Light/Minimal font
-              color: AppTheme.textPrimary,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
         ],
@@ -263,6 +350,7 @@ class HomeScreen extends StatelessWidget {
     String mealType,
     Dish? dish,
     Color bgColor,
+    bool isDarkMode,
   ) {
     if (dish == null) return const SizedBox.shrink();
 
@@ -270,9 +358,13 @@ class HomeScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(
+          color: isDarkMode
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.grey[200]!,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -288,7 +380,7 @@ class HomeScreen extends StatelessWidget {
             decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
             child: Icon(
               _getCategoryIcon(dish.category),
-              color: Colors.black54,
+              color: isDarkMode ? Colors.white70 : Colors.black54,
               size: 20,
             ),
           ),
@@ -309,10 +401,10 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   dish.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.textPrimary,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
                 if (dish.ingredients.isNotEmpty) ...[
@@ -326,78 +418,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBazaarPreview(KalKiProvider provider) {
-    final list = provider.getGeneratedShoppingList();
-    if (list.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(
-          'Nothing set for tomorrow yet.',
-          style: TextStyle(color: Colors.grey),
-        ),
-      );
-    }
-
-    // Show first 3 items + count
-    final previewItems = list.take(3).toList();
-    final remaining = list.length - 3;
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[50], // Very light grey for differentiating section
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              ...previewItems.map(
-                (item) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    item,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: AppTheme.textPrimary,
-                    ),
-                  ),
-                ),
-              ),
-              if (remaining > 0)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    '+$remaining more',
-                    style: const TextStyle(fontSize: 13, color: Colors.grey),
-                  ),
-                ),
-            ],
           ),
         ],
       ),
