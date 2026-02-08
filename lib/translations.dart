@@ -37,6 +37,10 @@ class AppTranslations {
       'essentials': "ESSENTIALS",
       'others': "OTHERS",
       'regenerate': "Regenerate",
+      'shopping_list_empty': "Your list is empty",
+      'all_set': "You're all set!",
+      'all_done': "All Done!",
+      'happy_cooking': "Happy cooking!",
     },
     'bn': {
       'tomorrow_menu': "আগামীকালের মেনু",
@@ -74,6 +78,10 @@ class AppTranslations {
       'essentials': "প্রয়োজনীয়",
       'others': "অন্যান্য",
       'regenerate': "পুনরায় তৈরি",
+      'shopping_list_empty': "আপনার তালিকা খালি",
+      'all_set': "সব ঠিক আছে!",
+      'all_done': "সব শেষ!",
+      'happy_cooking': "রান্না উপভোগ করুন!",
     },
   };
 }

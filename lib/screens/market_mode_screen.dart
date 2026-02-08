@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../providers/kalki_provider.dart';
 import '../theme.dart';
 
@@ -41,61 +42,150 @@ class MarketModeScreen extends StatelessWidget {
                   provider,
                 ),
                 Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 16,
-                    ),
-                    children: [
-                      if (cookingList.isNotEmpty) ...[
-                        _buildSectionTitle(
-                          provider.t('for_tomorrow'),
-                          Icons.restaurant,
-                        ),
-                        const SizedBox(height: 12),
-                        ...cookingList.map(
-                          (item) => _buildMinimalCheckItem(
-                            context,
-                            provider,
-                            item,
-                            isCooking: true,
+                  child: totalItems == 0
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.check_circle_outline,
+                                size: 80,
+                                color: Colors.grey.shade300,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                provider.t('shopping_list_empty'),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                provider.t('all_set'),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 32),
-                      ],
-
-                      if (starredEssentials.isNotEmpty) ...[
-                        _buildSectionTitle(
-                          provider.t('essentials'),
-                          Icons.star_border,
-                        ),
-                        const SizedBox(height: 12),
-                        ...starredEssentials.map(
-                          (item) => _buildMinimalCheckItem(
-                            context,
-                            provider,
-                            item.name,
+                        )
+                      : ListView(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
                           ),
-                        ),
-                        const SizedBox(height: 32),
-                      ],
+                          children: [
+                            // Completion Celebration
+                            if (progress >= 1.0 && totalItems > 0)
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.green.shade50,
+                                      Colors.green.shade100,
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: Colors.green.shade200,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.celebration,
+                                      color: Colors.green.shade700,
+                                      size: 32,
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '🎉 ${provider.t('all_done')}',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.green.shade800,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            provider.t('happy_cooking'),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              color: Colors.green.shade700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            if (cookingList.isNotEmpty) ...[
+                              _buildSectionTitle(
+                                provider.t('for_tomorrow'),
+                                Icons.restaurant_menu,
+                                iconColor: Colors.deepOrange,
+                              ),
+                              const SizedBox(height: 12),
+                              ...cookingList.map(
+                                (item) => _buildMinimalCheckItem(
+                                  context,
+                                  provider,
+                                  item,
+                                  isCooking: true,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
 
-                      if (otherEssentials.isNotEmpty) ...[
-                        _buildSectionTitle(provider.t('others'), Icons.api),
-                        const SizedBox(height: 12),
-                        ...otherEssentials.map(
-                          (item) => _buildMinimalCheckItem(
-                            context,
-                            provider,
-                            item.name,
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-                      ],
+                            if (starredEssentials.isNotEmpty) ...[
+                              _buildSectionTitle(
+                                provider.t('essentials'),
+                                Icons.star,
+                                iconColor: Colors.amber.shade700,
+                              ),
+                              const SizedBox(height: 12),
+                              ...starredEssentials.map(
+                                (item) => _buildMinimalCheckItem(
+                                  context,
+                                  provider,
+                                  item.name,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
 
-                      const SizedBox(height: 80), // Fab space
-                    ],
-                  ),
+                            if (otherEssentials.isNotEmpty) ...[
+                              _buildSectionTitle(
+                                provider.t('others'),
+                                Icons.shopping_basket,
+                                iconColor: Colors.grey.shade600,
+                              ),
+                              const SizedBox(height: 12),
+                              ...otherEssentials.map(
+                                (item) => _buildMinimalCheckItem(
+                                  context,
+                                  provider,
+                                  item.name,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+
+                            const SizedBox(height: 80), // Fab space
+                          ],
+                        ),
                 ),
               ],
             ),
@@ -134,10 +224,11 @@ class MarketModeScreen extends StatelessWidget {
               ),
               Text(
                 provider.t('shopping_list'),
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.poppins(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
                   color: Theme.of(context).textTheme.titleLarge?.color,
+                  letterSpacing: -0.5,
                 ),
               ),
               const SizedBox(width: 40), // Balance back button
@@ -152,10 +243,11 @@ class MarketModeScreen extends StatelessWidget {
                 children: [
                   Text(
                     provider.t('picked_items'),
-                    style: TextStyle(
-                      fontSize: 13,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[500],
+                      letterSpacing: 0.5,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -187,21 +279,33 @@ class MarketModeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.shade100, width: 4),
-                ),
-                child: Center(
-                  child: CircularProgressIndicator(
-                    value: progress,
-                    backgroundColor: Colors.grey[100],
-                    color: AppTheme.primaryColor,
-                    strokeWidth: 4,
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: CircularProgressIndicator(
+                      value: progress,
+                      backgroundColor: Colors.grey.withValues(alpha: 0.15),
+                      color: progress >= 1.0
+                          ? Colors.green
+                          : AppTheme.primaryColor,
+                      strokeWidth: 6,
+                      strokeCap: StrokeCap.round,
+                    ),
                   ),
-                ),
+                  Text(
+                    '${(progress * 100).toInt()}%',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: progress >= 1.0
+                          ? Colors.green
+                          : Theme.of(context).textTheme.titleLarge?.color,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -210,21 +314,33 @@ class MarketModeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, size: 16, color: AppTheme.primaryColor),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
-            color: AppTheme.primaryColor,
+  Widget _buildSectionTitle(String title, IconData icon, {Color? iconColor}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: iconColor ?? AppTheme.primaryColor),
+          const SizedBox(width: 10),
+          Text(
+            title.toUpperCase(),
+            style: GoogleFonts.poppins(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.5,
+              color: iconColor ?? AppTheme.primaryColor,
+            ),
           ),
-        ),
-      ],
+          const SizedBox(width: 8),
+          Expanded(
+            child: Container(
+              height: 1,
+              color: (iconColor ?? AppTheme.primaryColor).withValues(
+                alpha: 0.2,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -283,14 +399,14 @@ class MarketModeScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 name,
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 16,
+                  fontWeight: FontWeight.w500,
                   color: isChecked
                       ? Colors.grey[400]
                       : Theme.of(context).textTheme.bodyLarge?.color,
                   decoration: isChecked ? TextDecoration.lineThrough : null,
                   decorationColor: Colors.grey[300],
-                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

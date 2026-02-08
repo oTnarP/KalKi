@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/models.dart';
 import '../services/kalki_data_manager.dart';
 import '../services/notification_service.dart';
-import '../translations.dart'; // Ensure this exists or mock it if it was deleted (it wasn't)
+import '../translations.dart';
 
 class KalKiProvider extends ChangeNotifier {
   final KalkiDataManager _dataManager = KalkiDataManager();
@@ -69,18 +70,96 @@ class KalKiProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
+      // Load preferences first (settings only)
+      await _loadPreferences();
+
+      // Load data from assets
       await _dataManager.loadAllData();
-      generateDailyPlan();
+
+      // NOW load saved plan (after dishes are loaded)
+      await _loadSavedPlan();
+
+      // Generate plan only if no saved plan exists
+      if (_currentPlan == null) {
+        await generateDailyPlan();
+      }
     } catch (e) {
-      debugPrint("Error loading data: $e");
+      debugPrint('Error loading data: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  void generateDailyPlan() {
-    if (!_dataManager.isLoaded || _isPlanLocked) return;
+  // -- Persistence --
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    _isDarkMode = prefs.getBool('darkMode') ?? false;
+    _isBangla = prefs.getBool('isBangla') ?? false;
+    _guestCount = prefs.getInt('guestCount') ?? 0;
+    _isPlanLocked = prefs.getBool('isPlanLocked') ?? false;
+    _waterReminderEnabled = prefs.getBool('waterReminderEnabled') ?? false;
+    _waterReminderFrequency = prefs.getInt('waterReminderFrequency') ?? 1;
+  }
+
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('darkMode', _isDarkMode);
+    await prefs.setBool('isBangla', _isBangla);
+    await prefs.setInt('guestCount', _guestCount);
+    await prefs.setBool('isPlanLocked', _isPlanLocked);
+    await prefs.setBool('waterReminderEnabled', _waterReminderEnabled);
+    await prefs.setInt('waterReminderFrequency', _waterReminderFrequency);
+  }
+
+  Future<void> _loadSavedPlan() async {
+    final prefs = await SharedPreferences.getInstance();
+    final mainDishId = prefs.getString('plan_mainDish');
+    final sideDishId = prefs.getString('plan_sideDish');
+    final breakfastId = prefs.getString('plan_breakfast');
+    final snackId = prefs.getString('plan_snack');
+    final planDateMs = prefs.getInt('plan_date');
+
+    // Only restore if all dish IDs exist
+    if (mainDishId != null &&
+        sideDishId != null &&
+        breakfastId != null &&
+        snackId != null) {
+      final mainDish =
+          _dataManager.getDish(mainDishId) ?? _getFallbackDish('main');
+      final sideDish =
+          _dataManager.getDish(sideDishId) ?? _getFallbackDish('side');
+      final breakfast =
+          _dataManager.getDish(breakfastId) ?? _getFallbackDish('breakfast');
+      final snack = _dataManager.getDish(snackId) ?? _getFallbackDish('snack');
+
+      _currentPlan = DailyPlan(
+        date: planDateMs != null
+            ? DateTime.fromMillisecondsSinceEpoch(planDateMs)
+            : DateTime.now().add(const Duration(days: 1)),
+        mainDish: mainDish,
+        sideDish: sideDish,
+        breakfast: breakfast,
+        snack: snack,
+      );
+    }
+  }
+
+  Future<void> _savePlan() async {
+    if (_currentPlan == null) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('plan_mainDish', _currentPlan!.mainDish.id);
+    await prefs.setString('plan_sideDish', _currentPlan!.sideDish.id);
+    await prefs.setString('plan_breakfast', _currentPlan!.breakfast.id);
+    await prefs.setString('plan_snack', _currentPlan!.snack.id);
+    await prefs.setInt('plan_date', _currentPlan!.date.millisecondsSinceEpoch);
+  }
+
+  Future<void> generateDailyPlan() async {
+    // Allow generation if: data is loaded AND (no plan exists OR plan is not locked)
+    if (!_dataManager.isLoaded) return;
+    if (_currentPlan != null && _isPlanLocked) return;
 
     final random = Random();
 
@@ -116,27 +195,36 @@ class KalKiProvider extends ChangeNotifier {
       snack: snackDish,
     );
 
+    // Save the plan to persistence
+    await _savePlan();
+
     notifyListeners();
   }
 
   void togglePlanLock() {
     _isPlanLocked = !_isPlanLocked;
+    _savePreferences();
+    if (_isPlanLocked) {
+      _savePlan(); // Save plan when locking
+    }
     notifyListeners();
   }
 
   void regeneratePlan() {
-    generateDailyPlan();
+    if (!_isPlanLocked) {
+      generateDailyPlan();
+    }
   }
 
   void lockPlan() {
-    // Placeholder for locking logic
-    // _currentPlan?.isLocked = true;
+    _isPlanLocked = true;
+    _savePreferences();
     notifyListeners();
   }
 
   void unlockPlan() {
-    // Placeholder
-    // _currentPlan?.isLocked = false;
+    _isPlanLocked = false;
+    _savePreferences();
     notifyListeners();
   }
 
@@ -155,22 +243,26 @@ class KalKiProvider extends ChangeNotifier {
 
   void toggleDarkMode(bool value) {
     _isDarkMode = value;
+    _savePreferences();
     notifyListeners();
   }
 
   void toggleLanguage(bool value) {
     _isBangla = value;
+    _savePreferences();
     notifyListeners();
   }
 
   void updateGuestCount(int count) {
     if (count < 0) return;
     _guestCount = count;
+    _savePreferences();
     notifyListeners();
   }
 
   void toggleWaterReminder(bool value) async {
     _waterReminderEnabled = value;
+    _savePreferences();
     notifyListeners();
 
     if (value) {
@@ -186,6 +278,7 @@ class KalKiProvider extends ChangeNotifier {
 
   void setWaterReminderFrequency(int hours) async {
     _waterReminderFrequency = hours;
+    _savePreferences();
     notifyListeners();
 
     // Reschedule if reminder is enabled
@@ -239,16 +332,15 @@ class KalKiProvider extends ChangeNotifier {
       _dataManager.getIngredientsForDish(_currentPlan!.snack),
     );
 
-    // Map to names, filtering out essentials if needed?
-    // Market Mode usually shows everything or maybe excludes essentials?
-    // The original filtered out nothing or maybe logic was different.
-    // Let's filter out essentials that are *starred* or *standard*?
-    // Actually, MarketScreen separates "FOR TOMORROW" from "ESSENTIALS".
-    // So "FOR TOMORROW" should probably exclude essentials that are in the pantry list?
-    // Let's exclude anything in `_dataManager.essentials`.
+    // Map to names, filtering out essentials
+    // "FOR TOMORROW" excludes items that are in the essentials/pantry list
+    // Extract essential names for comparison
+    final essentialNames = _dataManager.essentialItems
+        .map((e) => e.name)
+        .toSet();
 
     final filtered = allIngredients.where((e) {
-      return !_dataManager.essentials.contains(e.key);
+      return !essentialNames.contains(e.key);
     }).toList();
 
     return filtered
@@ -299,8 +391,8 @@ class KalKiProvider extends ChangeNotifier {
   String getShoppingPreview() {
     if (_currentPlan == null) return '';
 
-    // Calculate multiplier: 1 person + guests
-    final multiplier = 1 + _guestCount;
+    // Always show main dish name
+    final mainDishName = getDishName(_currentPlan!.mainDish);
 
     // Gather ingredients from Main + Side
     final allIngredients = <IngredientEntry>[];
@@ -311,33 +403,20 @@ class KalKiProvider extends ChangeNotifier {
       _dataManager.getIngredientsForDish(_currentPlan!.sideDish),
     );
 
-    // Filter out essentials
+    // Filter out essentials - fix: extract essential names first
+    final essentialNames = _dataManager.essentialItems
+        .map((e) => e.name)
+        .toSet();
     final filtered = allIngredients.where((e) {
-      return !_dataManager.essentials.contains(e.key);
+      return !essentialNames.contains(e.key);
     }).toList();
 
-    if (filtered.isEmpty) return t('check_pantry');
-
-    // Build preview with calculated quantities
-    final items = <String>[];
-    for (var entry in filtered.take(2)) {
-      final ing = _dataManager.ingredients[entry.key];
-      final name = ing != null ? getIngredientName(ing) : entry.key;
-
-      if (entry.qtyHint != null && multiplier > 1) {
-        final calculated = _multiplyQuantity(entry.qtyHint!, multiplier);
-        items.add('$name ($calculated)');
-      } else if (entry.qtyHint != null) {
-        items.add('$name (${entry.qtyHint})');
-      } else {
-        items.add(name);
-      }
+    // Show main dish name with item count
+    final itemCount = filtered.length;
+    if (itemCount == 0) {
+      return mainDishName;
     }
 
-    final remaining = filtered.length - items.length;
-    final itemsText = items.join('\n');
-    final suffix = remaining > 0 ? '\n+ $remaining ${t('more_items')}' : '';
-
-    return '$itemsText$suffix';
+    return '$mainDishName • $itemCount ${itemCount == 1 ? "item" : "items"}';
   }
 }
