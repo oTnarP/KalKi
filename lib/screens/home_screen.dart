@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import '../providers/kalki_provider.dart';
 import '../theme.dart';
 import '../models/models.dart';
@@ -130,7 +132,8 @@ class HomeScreen extends StatelessWidget {
     KalKiProvider provider,
   ) {
     // Simple date format
-    final dateStr = "${plan.date.day}/${plan.date.month}";
+    // final dateStr = "${plan.date.day}/${plan.date.month}";
+    // We use DateFormat inside the text widget directly now
     return Column(
       children: [
         Text(
@@ -143,10 +146,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         Text(
-          dateStr,
+          DateFormat('d MMM').format(plan.date), // "9 Feb" - Short & Sweet
           style: GoogleFonts.poppins(
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w400, // Regular, not bold
             color: AppTheme.primaryColor,
           ),
         ),
@@ -226,10 +229,10 @@ class HomeScreen extends StatelessWidget {
                       color: AppTheme.primaryColor.withValues(alpha: 0.08),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      _getMainDishIcon(plan.mainDish),
-                      size: 40,
-                      color: AppTheme.primaryColor,
+                    child: FaIcon(
+                      _getDishIcon(plan.mainDish.id),
+                      size: 32,
+                      color: _getDishColor(plan.mainDish.id),
                     ),
                   ),
 
@@ -434,10 +437,15 @@ class HomeScreen extends StatelessWidget {
                             side: BorderSide(
                               color:
                                   (provider.isPlanLocked
-                                          ? AppTheme.primaryColor
+                                          ? AppTheme
+                                                .primaryColor // Keep colored border for consistency or faded?
                                           : Colors.grey)
                                       .withValues(alpha: 0.3),
                               width: 1.5,
+                            ),
+                            // Faded foreground when disabled (button itself handles disabled color but we want custom)
+                            disabledForegroundColor: Colors.grey.withValues(
+                              alpha: 0.5,
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8, // Tighter horizontal padding
@@ -455,10 +463,12 @@ class HomeScreen extends StatelessWidget {
                           onPressed: provider.isPlanLocked
                               ? null
                               : provider.generateDailyPlan,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.refresh,
                             size: 16,
-                            color: AppTheme.primaryColor,
+                            color: provider.isPlanLocked
+                                ? Colors.grey[400]
+                                : AppTheme.primaryColor,
                           ),
                           label: Text(
                             provider.t('regenerate'),
@@ -467,7 +477,9 @@ class HomeScreen extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: AppTheme.primaryColor,
+                              color: provider.isPlanLocked
+                                  ? Colors.grey[400]
+                                  : AppTheme.primaryColor,
                             ),
                           ),
                           style: OutlinedButton.styleFrom(
@@ -529,73 +541,102 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  IconData _getMainDishIcon(Dish dish) {
-    final cat = dish.category.toUpperCase();
-    if (cat.contains('FISH')) return Icons.set_meal;
-    if (cat.contains('MEAT') ||
-        cat.contains('CHICKEN') ||
-        cat.contains('BEEF') ||
-        cat.contains('MUTTON')) {
-      return Icons.dinner_dining;
+  IconData _getDishIcon(String id) {
+    // === FISH & SEAFOOD ===
+    if (id.contains('ilish')) return FontAwesomeIcons.fish; // Regular Fish
+    if (id.contains('rui') || id.contains('catla')) {
+      return FontAwesomeIcons.fishFins; // Detailed Fish
     }
-    if (cat.contains('EGG')) return Icons.egg; // Using Icons.egg (Material)
-    if (cat.contains('VEG')) return Icons.eco;
-    return Icons.restaurant;
+    if (id.contains('chingri') || id.contains('prawn')) {
+      return FontAwesomeIcons.shrimp;
+    }
+    if (id.contains('shutki')) {
+      return FontAwesomeIcons.bone; // Dried Fish distinctive
+    }
+    if (id.contains('mola') || id.contains('small_fish')) {
+      return Icons.set_meal; // Small fish group
+    }
+    if (id.contains('fish')) return FontAwesomeIcons.fish;
+
+    // === MEAT ===
+    if (id.contains('chicken') || id.contains('roast')) {
+      return FontAwesomeIcons.drumstickBite;
+    }
+    if (id.contains('beef') || id.contains('mutton') || id.contains('kala')) {
+      return FontAwesomeIcons.burger; // Meat icon
+    }
+    if (id.contains('egg') || id.contains('dim')) return FontAwesomeIcons.egg;
+
+    // === RICE & GRAINS ===
+    if (id.contains('khichuri')) return FontAwesomeIcons.spoon; // Mixed rice
+    if (id.contains('polao')) return FontAwesomeIcons.cloud; // Fluffy
+    if (id.contains('biriyani') || id.contains('kacchi')) {
+      return Icons.rice_bowl; // Special bowl
+    }
+    if (id.contains('rice') || id.contains('bhat')) {
+      return FontAwesomeIcons.bowlRice;
+    }
+
+    // === BREADS ===
+    if (id.contains('paratha')) return FontAwesomeIcons.pizzaSlice; // Triangle
+    if (id.contains('ruti') || id.contains('bread')) {
+      return FontAwesomeIcons.cookie; // Round
+    }
+
+    // === VEGETABLES ===
+    if (id.contains('vorta')) return FontAwesomeIcons.mortarPestle; // Mashed
+    if (id.contains('shak') || id.contains('leaf')) {
+      return FontAwesomeIcons.leaf; // Leafy
+    }
+    if (id.contains('begun')) return FontAwesomeIcons.seedling; // Eggplantish
+    if (id.contains('alu') || id.contains('potato')) {
+      return FontAwesomeIcons.cookie; // Round vegetable
+    }
+    if (id.contains('dal')) return FontAwesomeIcons.mugHot; // Soup
+    if (id.contains('vaji') ||
+        id.contains('veg') ||
+        id.contains('lau') ||
+        id.contains('kumra') ||
+        id.contains('kopi'))
+      return FontAwesomeIcons.carrot;
+
+    // === DESSERT ===
+    if (id.contains('halua') || id.contains('misti') || id.contains('shemai')) {
+      return FontAwesomeIcons.iceCream;
+    }
+
+    return FontAwesomeIcons.utensils;
   }
 
-  Widget _buildSmallMealCard(
-    BuildContext context,
-    String title,
-    Dish dish,
-    IconData icon,
-    Color bg,
-    Color accent,
-    KalKiProvider provider,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: accent.withValues(alpha: 0.1), width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              Icon(icon, size: 14, color: accent),
-              const SizedBox(width: 4),
-              Text(
-                title,
-                style: GoogleFonts.poppins(
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                  color: accent.withValues(alpha: 0.8),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                provider.getDishName(dish),
-                style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  height: 1.1,
-                  color: Colors.black87,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  Color _getDishColor(String id) {
+    // === FISH Colors ===
+    if (id.contains('ilish')) return Colors.blue[300]!;
+    if (id.contains('rui')) return Colors.teal[300]!;
+    if (id.contains('chingri')) return Colors.orange[400]!;
+    if (id.contains('shutki')) return Colors.brown[600]!;
+    if (id.contains('fish')) return Colors.blue[400]!;
+
+    // === MEAT Colors ===
+    if (id.contains('chicken') || id.contains('roast')) {
+      return Colors.deepOrange;
+    }
+    if (id.contains('beef')) return Colors.red[800]!;
+    if (id.contains('mutton')) return Colors.red[900]!;
+    if (id.contains('egg')) return Colors.amber[600]!;
+
+    // === RICE Colors ===
+    if (id.contains('khichuri')) return Colors.yellow[700]!;
+    if (id.contains('polao')) return Colors.grey[200]!;
+    if (id.contains('biriyani')) return Colors.orange[700]!;
+    if (id.contains('rice') || id.contains('bhat')) return Colors.amber[100]!;
+
+    // === VEG Colors ===
+    if (id.contains('shak')) return Colors.green[700]!;
+    if (id.contains('begun')) return Colors.purple[300]!;
+    if (id.contains('vorta')) return Colors.deepOrange[300]!;
+    if (id.contains('dal')) return Colors.brown[300]!;
+    if (id.contains('vaji') || id.contains('veg')) return Colors.lightGreen;
+
+    return AppTheme.primaryColor;
   }
 }

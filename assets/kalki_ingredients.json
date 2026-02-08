@@ -1,350 +1,275 @@
 [
   {
     "key": "onion",
-    "name": "Onion (Peyaj)",
-    "synonyms": [
-      "peaj",
-      "peyaj",
-      "onions"
-    ],
+    "name": "Peyaj",
+    "synonyms": ["peaj", "onions"],
     "section": "VEG"
   },
   {
     "key": "garlic",
-    "name": "Garlic (Roshun)",
-    "synonyms": [
-      "roshun"
-    ],
+    "name": "Roshun",
+    "synonyms": ["roshun"],
     "section": "VEG"
   },
   {
     "key": "ginger",
-    "name": "Ginger (Ada)",
-    "synonyms": [
-      "ada"
-    ],
+    "name": "Ada",
+    "synonyms": ["ada"],
     "section": "VEG"
   },
   {
     "key": "green_chili",
-    "name": "Green chili (Kacha morich)",
-    "synonyms": [
-      "kacha morich",
-      "morich"
-    ],
+    "name": "Kacha Morich",
+    "synonyms": ["kacha morich", "morich"],
     "section": "VEG"
   },
   {
     "key": "tomato",
     "name": "Tomato",
-    "synonyms": [
-      "tomatoes"
-    ],
+    "synonyms": ["tomatoes"],
     "section": "VEG"
   },
   {
     "key": "potato",
-    "name": "Potato (Alu)",
-    "synonyms": [
-      "alu"
-    ],
+    "name": "Alu",
+    "synonyms": ["alu"],
     "section": "VEG"
   },
   {
     "key": "lemon",
-    "name": "Lemon/Lime (Lebu)",
-    "synonyms": [
-      "lebu",
-      "lime"
-    ],
+    "name": "Lebu",
+    "synonyms": ["lebu", "lime"],
     "section": "VEG"
   },
   {
     "key": "coriander_leaf",
-    "name": "Coriander leaf (Dhonia pata)",
-    "synonyms": [
-      "dhonia pata"
-    ],
+    "name": "Dhone Pata",
+    "synonyms": ["dhonia pata"],
     "section": "VEG"
   },
   {
     "key": "mint",
-    "name": "Mint (Pudina)",
-    "synonyms": [
-      "pudina"
-    ],
+    "name": "Pudina Pata",
+    "synonyms": ["pudina"],
     "section": "VEG"
   },
   {
     "key": "turmeric",
-    "name": "Turmeric (Holud)",
-    "synonyms": [
-      "holud"
-    ],
+    "name": "Holud",
+    "synonyms": ["holud"],
     "section": "GROCERY"
   },
   {
     "key": "red_chili_powder",
-    "name": "Red chili powder",
-    "synonyms": [
-      "lal morich gura"
-    ],
+    "name": "Morich Gura",
+    "synonyms": ["lal morich gura"],
     "section": "GROCERY"
   },
   {
     "key": "coriander_powder",
-    "name": "Coriander powder (Dhonia gura)",
-    "synonyms": [
-      "dhonia gura"
-    ],
+    "name": "Dhone Gura",
+    "synonyms": ["dhonia gura"],
     "section": "GROCERY"
   },
   {
     "key": "cumin",
-    "name": "Cumin (Jeera)",
-    "synonyms": [
-      "jeera"
-    ],
+    "name": "Jeera",
+    "synonyms": ["jeera"],
     "section": "GROCERY"
   },
   {
     "key": "garam_masala",
-    "name": "Garam masala",
-    "synonyms": [
-      "garam mosla"
-    ],
+    "name": "Garam Masala",
+    "synonyms": ["garam mosla"],
     "section": "GROCERY"
   },
   {
     "key": "bay_leaf",
-    "name": "Bay leaf (Tejpata)",
+    "name": "Tej Pata",
     "name_bn": "তেজপাতা",
-    "synonyms": [
-      "tejpata"
-    ],
+    "synonyms": ["tejpata"],
     "section": "GROCERY"
   },
   {
     "key": "cinnamon",
-    "name": "Cinnamon (Daruchini)",
+    "name": "Daruchini",
     "name_bn": "দারুচিনি",
-    "synonyms": [
-      "daruchini"
-    ],
+    "synonyms": ["daruchini"],
     "section": "GROCERY"
   },
   {
     "key": "cardamom",
-    "name": "Cardamom (Elach)",
+    "name": "Elach",
     "name_bn": "এলাচ",
-    "synonyms": [
-      "elach"
-    ],
+    "synonyms": ["elach"],
     "section": "GROCERY"
   },
   {
     "key": "cloves",
-    "name": "Cloves (Lobongo)",
+    "name": "Lobongo",
     "name_bn": "লবঙ্গ",
-    "synonyms": [
-      "lobongo"
-    ],
+    "synonyms": ["lobongo"],
     "section": "GROCERY"
   },
   {
     "key": "black_pepper",
-    "name": "Black pepper (Gol morich)",
-    "synonyms": [
-      "gol morich"
-    ],
+    "name": "Gol Morich",
+    "synonyms": ["gol morich"],
     "section": "GROCERY"
   },
   {
     "key": "mustard_oil",
-    "name": "Mustard oil (Shorishar tel)",
+    "name": "Shorishar Tel",
     "name_bn": "সরিষার তেল",
-    "synonyms": [
-      "shorishar tel"
-    ],
+    "synonyms": ["shorishar tel"],
     "section": "GROCERY"
   },
   {
     "key": "oil",
-    "name": "Cooking oil",
+    "name": "Soybean Tel",
     "name_bn": "সয়াবিন তেল",
-    "synonyms": [
-      "tel"
-    ],
+    "synonyms": ["tel"],
     "section": "GROCERY"
   },
   {
     "key": "salt",
-    "name": "Salt (Lobon)",
+    "name": "Lobon",
     "name_bn": "লবণ",
-    "synonyms": [
-      "lobon"
-    ],
+    "synonyms": ["lobon"],
     "section": "GROCERY"
   },
   {
     "key": "sugar",
-    "name": "Sugar (Chini)",
-    "synonyms": [
-      "chini"
-    ],
+    "name": "Chini",
+    "synonyms": ["chini"],
     "section": "GROCERY"
   },
   {
     "key": "mustard_seed",
-    "name": "Mustard seeds",
-    "synonyms": [
-      "shorisha"
-    ],
+    "name": "Shorisha",
+    "synonyms": ["shorisha"],
     "section": "GROCERY"
   },
   {
     "key": "mustard_paste",
-    "name": "Mustard paste",
-    "synonyms": [
-      "shorisha bata"
-    ],
+    "name": "Shorisha Bata",
+    "synonyms": ["shorisha bata"],
     "section": "GROCERY"
   },
   {
     "key": "nigella",
-    "name": "Nigella (Kalo jeera)",
-    "synonyms": [
-      "kalo jeera"
-    ],
+    "name": "Kalo Jeera",
+    "synonyms": ["kalo jeera"],
     "section": "GROCERY"
   },
   {
     "key": "panch_phoron",
-    "name": "Panch phoron mix",
-    "synonyms": [
-      "panch phoron"
-    ],
+    "name": "Panch Phoron",
+    "synonyms": ["panch phoron"],
     "section": "GROCERY"
   },
   {
     "key": "tamarind",
-    "name": "Tamarind (Tetul)",
-    "synonyms": [
-      "tetul"
-    ],
+    "name": "Tetul",
+    "synonyms": ["tetul"],
     "section": "GROCERY"
   },
   {
     "key": "coconut_milk",
-    "name": "Coconut milk",
-    "synonyms": [
-      "narikel dudh"
-    ],
+    "name": "Narikel Dudh",
+    "synonyms": ["narikel dudh"],
     "section": "SUPERSHOP"
   },
   {
     "key": "coconut",
-    "name": "Coconut",
-    "synonyms": [
-      "narikel"
-    ],
+    "name": "Narikel",
+    "synonyms": ["narikel"],
     "section": "VEG"
   },
   {
     "key": "vinegar",
-    "name": "Vinegar",
+    "name": "Sirka",
     "synonyms": [],
     "section": "SUPERSHOP"
   },
   {
     "key": "ghee",
     "name": "Ghee",
-    "synonyms": [
-      "ghii"
-    ],
+    "synonyms": ["ghii"],
     "section": "SUPERSHOP"
   },
   {
     "key": "rice",
-    "name": "Rice (Chal)",
+    "name": "Chal",
     "name_bn": "চাল",
-    "synonyms": [
-      "chal"
-    ],
+    "synonyms": ["chal"],
     "section": "GROCERY"
   },
   {
     "key": "atta",
-    "name": "Atta flour",
+    "name": "Atta",
     "name_bn": "আটা",
-    "synonyms": [
-      "atta",
-      "flour"
-    ],
+    "synonyms": ["atta", "flour"],
+    "section": "GROCERY"
+  },
+  {
+    "key": "suji",
+    "name": "Suji",
+    "name_bn": "সুজি",
     "section": "GROCERY"
   },
   {
     "key": "lentil_masoor",
-    "name": "Masoor dal",
-    "synonyms": [
-      "musur dal"
-    ],
+    "name": "Mosur Dal",
+    "synonyms": ["musur dal"],
     "section": "GROCERY"
   },
   {
     "key": "lentil_moong",
-    "name": "Moong dal",
-    "synonyms": [
-      "mung dal"
-    ],
+    "name": "Mug Dal",
+    "synonyms": ["mung dal"],
     "section": "GROCERY"
   },
   {
     "key": "lentil_chana",
-    "name": "Cholar dal",
-    "synonyms": [
-      "chana dal"
-    ],
+    "name": "Cholar Dal",
+    "synonyms": ["chana dal"],
     "section": "GROCERY"
   },
   {
     "key": "egg",
-    "name": "Egg (Dim)",
-    "synonyms": [
-      "dim"
-    ],
+    "name": "Dim",
+    "synonyms": ["dim"],
     "section": "SUPERSHOP"
   },
   {
     "key": "milk",
-    "name": "Milk (Dudh)",
-    "synonyms": [
-      "dudh"
-    ],
+    "name": "Dudh",
+    "synonyms": ["dudh"],
+    "section": "SUPERSHOP"
+  },
+  {
+    "key": "curd",
+    "name": "Tok Doi",
+    "synonyms": ["doi"],
     "section": "SUPERSHOP"
   },
   {
     "key": "yogurt",
-    "name": "Yogurt (Doi)",
-    "synonyms": [
-      "doi"
-    ],
+    "name": "Mishti Doi",
+    "synonyms": ["doi"],
     "section": "SUPERSHOP"
   },
   {
     "key": "bread",
-    "name": "Bread (Pauroti)",
-    "synonyms": [
-      "pauroti"
-    ],
+    "name": "Pauroti",
+    "synonyms": ["pauroti"],
     "section": "SUPERSHOP"
   },
   {
     "key": "biscuits",
-    "name": "Biscuits",
-    "synonyms": [
-      "biscuit"
-    ],
+    "name": "Biscuit",
+    "synonyms": ["biscuit"],
     "section": "SUPERSHOP"
   },
   {
@@ -355,54 +280,44 @@
   },
   {
     "key": "muri",
-    "name": "Muri (puffed rice)",
+    "name": "Muri",
     "synonyms": [],
     "section": "SUPERSHOP"
   },
   {
     "key": "chira",
-    "name": "Chira (flattened rice)",
+    "name": "Chira",
     "synonyms": [],
     "section": "SUPERSHOP"
   },
   {
     "key": "instant_noodles",
-    "name": "Instant noodles",
-    "synonyms": [
-      "noodles"
-    ],
+    "name": "Instant Noodles",
+    "synonyms": ["noodles"],
     "section": "SUPERSHOP"
   },
   {
     "key": "frozen_paratha",
-    "name": "Frozen paratha",
-    "synonyms": [
-      "paratha"
-    ],
+    "name": "Parota (Frozen)",
+    "synonyms": ["paratha"],
     "section": "SUPERSHOP"
   },
   {
     "key": "tea",
-    "name": "Tea",
-    "synonyms": [
-      "cha pata"
-    ],
+    "name": "Cha Pata",
+    "synonyms": ["cha pata"],
     "section": "SUPERSHOP"
   },
   {
     "key": "coffee_sachet",
-    "name": "Coffee (sachet)",
-    "synonyms": [
-      "coffee"
-    ],
+    "name": "Coffee",
+    "synonyms": ["coffee"],
     "section": "SUPERSHOP"
   },
   {
     "key": "bananas",
-    "name": "Banana (Kola)",
-    "synonyms": [
-      "kola"
-    ],
+    "name": "Kola",
+    "synonyms": ["kola"],
     "section": "VEG"
   },
   {
@@ -413,171 +328,180 @@
   },
   {
     "key": "peanuts",
-    "name": "Peanuts",
-    "synonyms": [
-      "badam",
-      "china badam"
-    ],
+    "name": "Badam",
+    "synonyms": ["badam", "china badam"],
     "section": "SUPERSHOP"
   },
   {
     "key": "nuts_mix",
-    "name": "Nuts mix",
+    "name": "Badam Mix",
     "synonyms": [],
     "section": "SUPERSHOP"
   },
   {
     "key": "bottle_gourd",
-    "name": "Bottle gourd (Lau)",
+    "name": "Lau",
     "name_bn": "লাউ",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "pumpkin",
-    "name": "Pumpkin (Kumra)",
+    "name": "Misti Kumra",
     "name_bn": "মিষ্টি কুমড়া",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "eggplant",
-    "name": "Eggplant (Begun)",
+    "name": "Begun",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "cauliflower",
-    "name": "Cauliflower (Fulkopi)",
+    "name": "Fulkopi",
     "name_bn": "ফুলকপি",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "cabbage",
-    "name": "Cabbage (Bandhakopi)",
+    "name": "Bandhakopi",
     "name_bn": "বাঁধাকপি",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "okra",
-    "name": "Okra (Dherosh)",
+    "name": "Dherosh",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "green_beans",
-    "name": "Green beans (Sheem)",
+    "name": "Sheem / Borboti",
+    "synonyms": [],
+    "section": "VEG"
+  },
+  {
+    "key": "flat_beans",
+    "name": "Sheem",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "spinach",
-    "name": "Spinach (Palong)",
+    "name": "Palong Shak",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "red_amaranth",
-    "name": "Red amaranth (Lal shak)",
+    "name": "Lal Shak",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "pui_shak",
-    "name": "Pui shak",
+    "name": "Pui Shak",
+    "synonyms": [],
+    "section": "VEG"
+  },
+  {
+    "key": "kolmi_shak",
+    "name": "Kolmi Shak",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "data_shak",
-    "name": "Data shak",
+    "name": "Data Shak",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "green_papaya",
-    "name": "Green papaya (Kacha pepe)",
+    "name": "Kacha Pepe",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "radish",
-    "name": "Radish (Mula)",
+    "name": "Mula",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "carrot",
-    "name": "Carrot (Gajor)",
+    "name": "Gajor",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "cucumber",
-    "name": "Cucumber (Shosha)",
+    "name": "Shosha",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "bitter_gourd",
-    "name": "Bitter gourd (Korola)",
+    "name": "Korola",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "pointed_gourd",
-    "name": "Pointed gourd (Potol)",
+    "name": "Potol",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "ridge_gourd",
-    "name": "Ridge gourd (Jhinga)",
+    "name": "Jhinga",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "sponge_gourd",
-    "name": "Sponge gourd (Dhundul)",
+    "name": "Dhundul",
     "name_bn": "ধুন্দল (Dhundul)",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "wax_gourd",
-    "name": "Wax gourd (Chal kumra)",
+    "name": "Chal Kumra",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "green_banana",
-    "name": "Green banana (Kacha kola)",
+    "name": "Kacha Kola",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "jackfruit",
-    "name": "Jackfruit (Kathal)",
+    "name": "Echor / Kathal",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "green_peas",
-    "name": "Green peas (Motor)",
+    "name": "Motor Shuti",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "beetroot",
-    "name": "Beetroot",
+    "name": "Beet",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "capsicum",
-    "name": "Capsicum (Shimla morich)",
+    "name": "Capsicum",
     "synonyms": [],
     "section": "VEG"
   },
@@ -589,43 +513,43 @@
   },
   {
     "key": "taro",
-    "name": "Taro (Kochu)",
+    "name": "Kochu",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "arum_stem",
-    "name": "Arum stem (Kochur loti)",
+    "name": "Kochur Loti",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "bamboo_shoot",
-    "name": "Bamboo shoot (Bansh korol)",
+    "name": "Bash Korol",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "spring_onion",
-    "name": "Spring onion",
+    "name": "Peyaj Koli",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "garlic_chives",
-    "name": "Garlic chives (Roshun pata)",
+    "name": "Roshun Pata",
     "synonyms": [],
     "section": "VEG"
   },
   {
     "key": "rui_fish",
-    "name": "Rui fish",
+    "name": "Rui Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "katla_fish",
-    "name": "Katla fish",
+    "name": "Katla Mach",
     "synonyms": [],
     "section": "FISH"
   },
@@ -637,154 +561,128 @@
   },
   {
     "key": "koi_fish",
-    "name": "Koi fish",
+    "name": "Koi Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "pabda_fish",
-    "name": "Pabda fish",
+    "name": "Pabda Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "shing_fish",
-    "name": "Shing fish",
+    "name": "Shing Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "magur_fish",
-    "name": "Magur fish",
+    "name": "Magur Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "pangas_fish",
-    "name": "Pangas fish",
+    "name": "Pangas Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "boal_fish",
-    "name": "Boal fish",
+    "name": "Boal Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "taki_fish",
-    "name": "Taki fish",
+    "name": "Taki Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "mola_fish",
-    "name": "Mola fish",
+    "name": "Mola Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "chapila_fish",
-    "name": "Chapila fish",
+    "name": "Chapila Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "loitta_fish",
-    "name": "Loitta fish",
+    "name": "Loitta Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "bata_fish",
-    "name": "Bata fish",
+    "name": "Bata Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "ilish_fish",
-    "name": "Ilish (Hilsa)",
+    "name": "Ilish Mach",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "chingri",
-    "name": "Chingri (shrimp)",
+    "name": "Chingri",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "shutki",
-    "name": "Shutki (dry fish)",
+    "name": "Shutki (Dry Fish)",
     "synonyms": [],
     "section": "FISH"
   },
   {
     "key": "chicken",
-    "name": "Chicken",
-    "synonyms": [
-      "murgi"
-    ],
+    "name": "Murgi",
+    "synonyms": ["murgi"],
     "section": "MEAT"
-  },
-  {
-    "key": "beef",
-    "name": "Beef",
-    "synonyms": [
-      "goru mangsho"
-    ],
-    "section": "MEAT"
-  },
-  {
-    "key": "oats",
-    "name": "Oats",
-    "synonyms": [],
-    "section": "SUPERSHOP"
-  },
-  {
-    "key": "singara_pack",
-    "name": "Singara (ready-made)",
-    "synonyms": [
-      "singara"
-    ],
-    "section": "SUPERSHOP"
-  },
-  {
-    "key": "samosa_pack",
-    "name": "Samosa (ready-made)",
-    "synonyms": [
-      "samosa"
-    ],
-    "section": "SUPERSHOP"
   },
   {
     "key": "chicken_broiler",
-    "name": "Broiler Chicken",
+    "name": "Broiler Murgi",
     "name_bn": "ব্রয়লার মুরগি",
     "section": "MEAT"
   },
   {
     "key": "chicken_deshi",
-    "name": "Deshi Chicken",
+    "name": "Deshi Murgi",
     "name_bn": "দেশি মুরগি",
     "section": "MEAT"
   },
   {
+    "key": "chicken_roast",
+    "name": "Roast Chicken",
+    "name_bn": "রোস্টের মুরগি",
+    "section": "MEAT"
+  },
+  {
+    "key": "beef",
+    "name": "Goru Mangsho",
+    "synonyms": ["goru mangsho"],
+    "section": "MEAT"
+  },
+  {
     "key": "mutton",
-    "name": "Mutton",
+    "name": "Khasi Mangsho",
     "name_bn": "খাসির মাংস",
     "section": "MEAT"
   },
   {
-    "key": "rui_fish",
-    "name": "Rui Fish",
-    "name_bn": "রুই মাছ",
-    "section": "FISH"
-  },
-  {
     "key": "small_fish",
-    "name": "Small Fish (Kachki/Mola)",
-    "name_bn": "ছোট মাছ (কাঁচকি/মলা)",
+    "name": "Gura Mach",
+    "name_bn": "ছোট মাছ",
     "section": "FISH"
   },
   {
@@ -800,9 +698,57 @@
     "section": "FISH"
   },
   {
-    "key": "kolmi_shak",
-    "name": "Water Spinach (Kolmi Shak)",
-    "name_bn": "কলমি শাক",
-    "section": "VEGETABLE"
+    "key": "vegetable_mix",
+    "name": "Mix Sobji",
+    "name_bn": "মিক্স সবজি",
+    "section": "VEG"
+  },
+  {
+    "key": "mixed_veg",
+    "name": "Mix Sobji",
+    "name_bn": "মিক্স সবজি",
+    "section": "VEG"
+  },
+  {
+    "key": "rice_basmati",
+    "name": "Basmati Chal",
+    "name_bn": "বাসমতি চাল",
+    "section": "GROCERY"
+  },
+  {
+    "key": "polao_rice",
+    "name": "Polao Chal",
+    "name_bn": "পোলাও চাল",
+    "section": "GROCERY"
+  },
+  {
+    "key": "dried_chili",
+    "name": "Shukna Morich",
+    "name_bn": "শুকনা মরিচ",
+    "section": "GROCERY"
+  },
+  {
+    "key": "jelly",
+    "name": "Jelly",
+    "name_bn": "জেলি",
+    "section": "SUPERSHOP"
+  },
+  {
+    "key": "oats",
+    "name": "Oats",
+    "synonyms": [],
+    "section": "SUPERSHOP"
+  },
+  {
+    "key": "singara_pack",
+    "name": "Singara (Frozen)",
+    "synonyms": ["singara"],
+    "section": "SUPERSHOP"
+  },
+  {
+    "key": "samosa_pack",
+    "name": "Somucha (Frozen)",
+    "synonyms": ["samosa"],
+    "section": "SUPERSHOP"
   }
 ]
