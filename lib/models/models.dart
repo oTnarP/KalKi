@@ -120,12 +120,14 @@ class DailyPlan {
 class RoutineItem {
   final String id;
   final String name;
+  final String? ingredientKey;
   bool isStarred;
   bool isEnabled;
 
   RoutineItem({
     required this.id,
     required this.name,
+    this.ingredientKey,
     this.isStarred = false,
     this.isEnabled = true,
   });

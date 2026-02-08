@@ -139,7 +139,11 @@ class NotificationService {
     return isAllowed;
   }
 
-  Future<void> scheduleWaterReminders(int hours) async {
+  Future<void> scheduleWaterReminders({
+    required int hours,
+    required String title,
+    required String body,
+  }) async {
     if (!_initialized) await initialize();
 
     // Cancel existing water reminder only (ID 100)
@@ -150,8 +154,8 @@ class NotificationService {
       content: NotificationContent(
         id: 100, // Water Reminder ID
         channelKey: 'water_reminder',
-        title: '💧 Time to Drink Water!',
-        body: 'Stay hydrated for better health',
+        title: title,
+        body: body,
         notificationLayout: NotificationLayout.Default,
         category: NotificationCategory.Reminder,
         wakeUpScreen: true,
@@ -170,14 +174,21 @@ class NotificationService {
     debugPrint('CALKI: Water reminders canceled');
   }
 
-  Future<void> scheduleDailyMenuReminder() async {
+  Future<void> scheduleDailyMenuReminder({
+    required String checkTitle,
+    required String checkBody,
+    required String reminderTitle,
+    required String reminderBody,
+    required String lastCallTitle,
+    required String lastCallBody,
+  }) async {
     if (!_initialized) await initialize();
 
     // Schedule 1: 10:00 PM (22:00)
     await _scheduleDailyNotification(
       id: 200,
-      title: '🍽️ Check Tomorrow\'s Menu!',
-      body: 'Review your plan for tomorrow and lock it in.',
+      title: checkTitle,
+      body: checkBody,
       hour: 22,
       minute: 0,
     );
@@ -185,8 +196,8 @@ class NotificationService {
     // Schedule 2: 11:00 PM (23:00) - Reminder 1
     await _scheduleDailyNotification(
       id: 201,
-      title: '🍽️ Reminder: Lock Menu',
-      body: 'Don\'t forget to finalize tomorrow\'s meals!',
+      title: reminderTitle,
+      body: reminderBody,
       hour: 23,
       minute: 0,
     );
@@ -194,8 +205,8 @@ class NotificationService {
     // Schedule 3: 11:59 PM (23:59) - Final Call
     await _scheduleDailyNotification(
       id: 202,
-      title: '🕛 Last Call: Tomorrow\'s Menu',
-      body: 'Finalize your meal plan before the day ends.',
+      title: lastCallTitle,
+      body: lastCallBody,
       hour: 23,
       minute: 59,
     );

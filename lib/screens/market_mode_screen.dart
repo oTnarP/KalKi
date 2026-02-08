@@ -160,7 +160,7 @@ class MarketModeScreen extends StatelessWidget {
                                 (item) => _buildMinimalCheckItem(
                                   context,
                                   provider,
-                                  item.name,
+                                  provider.getRoutineItemName(item),
                                 ),
                               ),
                               const SizedBox(height: 32),
@@ -177,7 +177,7 @@ class MarketModeScreen extends StatelessWidget {
                                 (item) => _buildMinimalCheckItem(
                                   context,
                                   provider,
-                                  item.name,
+                                  provider.getRoutineItemName(item),
                                 ),
                               ),
                               const SizedBox(height: 32),
@@ -255,7 +255,7 @@ class MarketModeScreen extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '$picked',
+                          text: provider.localizeText(picked.toString()),
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -267,7 +267,7 @@ class MarketModeScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: '/$total',
+                          text: provider.localizeText('/$total'),
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[400],
@@ -296,7 +296,7 @@ class MarketModeScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${(progress * 100).toInt()}%',
+                    provider.localizeText('${(progress * 100).toInt()}%'),
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w800,

@@ -146,11 +146,16 @@ class ManageBottomSheet extends StatelessWidget {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  '${hours}h',
+                                                  provider.isBangla
+                                                      ? '${hours.toString().replaceAll('1', '১').replaceAll('2', '২').replaceAll('3', '৩')}${provider.t('hour_suffix')}'
+                                                      : '${hours}h',
                                                   style: TextStyle(
                                                     color: isSelected
                                                         ? Colors.white
-                                                        : AppTheme.textPrimary,
+                                                        : Theme.of(context)
+                                                              .textTheme
+                                                              .bodyLarge
+                                                              ?.color,
                                                     fontWeight: isSelected
                                                         ? FontWeight.bold
                                                         : FontWeight.normal,

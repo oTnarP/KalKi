@@ -331,163 +331,190 @@
     "key": "ess_dishwash",
     "name": "Dishwashing liquid",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "dishwash"
   },
   {
     "key": "ess_scrubber",
     "name": "Scrubber/sponge",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "scrubber"
   },
   {
     "key": "ess_tissue",
     "name": "Tissue/napkin",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "tissue"
   },
   {
     "key": "ess_toilet_tissue",
     "name": "Toilet tissue",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "toilet_tissue"
   },
   {
     "key": "ess_floor_cleaner",
     "name": "Floor cleaner",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "floor_cleaner"
   },
   {
     "key": "ess_laundry_detergent",
     "name": "Laundry detergent",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "laundry_detergent"
   },
   {
     "key": "ess_bleach",
     "name": "Bleach (optional)",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "bleach"
   },
   {
     "key": "ess_trash_bags",
     "name": "Trash bags",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "trash_bags"
   },
   {
     "key": "ess_air_freshener",
     "name": "Air freshener",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "air_freshener"
   },
   {
     "key": "ess_mosquito_coil",
     "name": "Mosquito coil/liquid",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "mosquito_coil"
   },
   {
     "key": "ess_matchbox",
     "name": "Matchbox/lighter",
     "group": "Home & cleaning",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "matchbox"
   },
   {
     "key": "ess_aluminium_foil",
     "name": "Aluminium foil",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "aluminium_foil"
   },
   {
     "key": "ess_zip_bags",
     "name": "Zip bags",
     "group": "Home & cleaning",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "zip_bags"
   },
   {
     "key": "ess_soap",
     "name": "Bath soap",
     "group": "Personal care",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "soap"
   },
   {
     "key": "ess_shampoo",
     "name": "Shampoo",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "shampoo"
   },
   {
     "key": "ess_toothpaste",
     "name": "Toothpaste",
     "group": "Personal care",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "toothpaste"
   },
   {
     "key": "ess_toothbrush",
     "name": "Toothbrush",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "toothbrush"
   },
   {
     "key": "ess_deodorant",
     "name": "Deodorant",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "deodorant"
   },
   {
     "key": "ess_razor",
     "name": "Razor",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "razor"
   },
   {
     "key": "ess_handwash",
     "name": "Handwash",
     "group": "Personal care",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "handwash"
   },
   {
     "key": "ess_sanitizer",
     "name": "Hand sanitizer",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "sanitizer"
   },
   {
     "key": "ess_facewash",
     "name": "Facewash",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "facewash"
   },
   {
     "key": "ess_lotion",
     "name": "Body lotion",
     "group": "Personal care",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "body_lotion"
   },
   {
     "key": "ess_paracetamol",
     "name": "Paracetamol",
     "group": "Emergency",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "paracetamol"
   },
   {
     "key": "ess_ors",
     "name": "ORS",
     "group": "Emergency",
-    "defaultStarred": true
+    "defaultStarred": true,
+    "ingredientKey": "ors"
   },
   {
     "key": "ess_bandage",
     "name": "Bandage",
     "group": "Emergency",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "bandage"
   },
   {
     "key": "ess_thermometer",
     "name": "Thermometer",
     "group": "Emergency",
-    "defaultStarred": false
+    "defaultStarred": false,
+    "ingredientKey": "thermometer"
   },
   {
     "key": "ess_basic_spices_backup",

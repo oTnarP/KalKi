@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: _buildAppBar(context),
+          appBar: _buildAppBar(context, provider),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 0),
             child: Column(
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(BuildContext context, KalKiProvider provider) {
     return AppBar(
       leading: IconButton(
         icon: const Icon(
@@ -95,37 +95,63 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       centerTitle: true,
-      title: RichText(
-        text: TextSpan(
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.5,
-          ),
-          children: const [
-            TextSpan(
-              text: 'Kal',
-              style: TextStyle(color: AppTheme.primaryColor),
-            ),
-            TextSpan(
-              text: 'Ki',
-              style: TextStyle(color: AppTheme.accentColor),
-            ),
-            WidgetSpan(
-              child: Padding(
-                padding: EdgeInsets.only(left: 2, bottom: 4),
-                child: Icon(
-                  Icons.circle,
-                  size: 6,
+      title: provider.isBangla
+          ? RichText(
+              text: TextSpan(
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
                   color: AppTheme.primaryColor,
                 ),
+                text: provider.t('app_name'),
+                children: const [
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 2, bottom: 4),
+                      child: Icon(
+                        Icons.circle,
+                        size: 6,
+                        color: AppTheme.accentColor,
+                      ),
+                    ),
+                    alignment: PlaceholderAlignment.baseline,
+                    baseline: TextBaseline.alphabetic,
+                  ),
+                ],
               ),
-              alignment: PlaceholderAlignment.baseline,
-              baseline: TextBaseline.alphabetic,
+            )
+          : RichText(
+              text: TextSpan(
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                ),
+                children: const [
+                  TextSpan(
+                    text: 'Kal',
+                    style: TextStyle(color: AppTheme.primaryColor),
+                  ),
+                  TextSpan(
+                    text: 'Ki',
+                    style: TextStyle(color: AppTheme.accentColor),
+                  ),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 2, bottom: 4),
+                      child: Icon(
+                        Icons.circle,
+                        size: 6,
+                        color: AppTheme.primaryColor,
+                      ),
+                    ),
+                    alignment: PlaceholderAlignment.baseline,
+                    baseline: TextBaseline.alphabetic,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
       actions: [
         IconButton(
           icon: const Icon(Icons.settings, color: Colors.grey),
@@ -163,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Text(
           DateFormat(
-            'd MMM',
+            provider.isBangla ? 'd MMMM' : 'd MMM',
             provider.isBangla ? 'bn_BD' : 'en_US',
           ).format(plan.date), // Locale-aware
           style: GoogleFonts.poppins(
@@ -561,68 +587,108 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   IconData _getDishIcon(String id) {
-    // === FISH & SEAFOOD ===
-    if (id.contains('ilish')) return FontAwesomeIcons.fish; // Regular Fish
-    if (id.contains('rui') || id.contains('catla')) {
-      return FontAwesomeIcons.fishFins; // Detailed Fish
+    // Helper to pick from a list based on ID hash
+    IconData pick(List<IconData> icons) {
+      if (icons.isEmpty) return FontAwesomeIcons.utensils;
+      final index = id.toLowerCase().hashCode.abs() % icons.length;
+      return icons[index];
     }
-    if (id.contains('chingri') || id.contains('prawn')) {
-      return FontAwesomeIcons.shrimp;
-    }
-    if (id.contains('shutki')) {
-      return FontAwesomeIcons.bone; // Dried Fish distinctive
-    }
-    if (id.contains('mola') || id.contains('small_fish')) {
-      return Icons.set_meal; // Small fish group
-    }
-    if (id.contains('fish')) return FontAwesomeIcons.fish;
 
-    // === MEAT ===
+    // === FISH & SEAFOOD ===
+    if (id.contains('ilish') ||
+        id.contains('rui') ||
+        id.contains('catla') ||
+        id.contains('fish') ||
+        id.contains('chingri') ||
+        id.contains('prawn') ||
+        id.contains('shutki') ||
+        id.contains('mola')) {
+      return pick([
+        FontAwesomeIcons.fish,
+        FontAwesomeIcons.fishFins,
+        FontAwesomeIcons.shrimp,
+        Icons.set_meal,
+        FontAwesomeIcons.water,
+      ]);
+    }
+
+    // === MEAT & EGGS ===
     if (id.contains('chicken') || id.contains('roast')) {
-      return FontAwesomeIcons.drumstickBite;
+      return pick([
+        FontAwesomeIcons.drumstickBite,
+        FontAwesomeIcons.fire,
+        FontAwesomeIcons.bone,
+      ]);
     }
     if (id.contains('beef') || id.contains('mutton') || id.contains('kala')) {
-      return FontAwesomeIcons.burger; // Meat icon
+      return pick([
+        FontAwesomeIcons.fireBurner,
+        FontAwesomeIcons.utensils,
+        FontAwesomeIcons.fire,
+      ]);
     }
-    if (id.contains('egg') || id.contains('dim')) return FontAwesomeIcons.egg;
+    if (id.contains('egg') || id.contains('dim')) {
+      return pick([FontAwesomeIcons.egg, FontAwesomeIcons.cloud]);
+    }
 
     // === RICE & GRAINS ===
-    if (id.contains('khichuri')) return FontAwesomeIcons.spoon; // Mixed rice
-    if (id.contains('polao')) return FontAwesomeIcons.cloud; // Fluffy
-    if (id.contains('biriyani') || id.contains('kacchi')) {
-      return Icons.rice_bowl; // Special bowl
-    }
-    if (id.contains('rice') || id.contains('bhat')) {
-      return FontAwesomeIcons.bowlRice;
+    if (id.contains('rice') ||
+        id.contains('bhat') ||
+        id.contains('khichuri') ||
+        id.contains('polao') ||
+        id.contains('biriyani') ||
+        id.contains('kacchi')) {
+      return pick([
+        FontAwesomeIcons.bowlRice,
+        FontAwesomeIcons.spoon,
+        FontAwesomeIcons.wheatAwn,
+        Icons.rice_bowl,
+      ]);
     }
 
-    // === BREADS ===
-    if (id.contains('paratha')) return FontAwesomeIcons.pizzaSlice; // Triangle
-    if (id.contains('ruti') || id.contains('bread')) {
-      return FontAwesomeIcons.cookie; // Round
+    // === BREADS & SNACKS ===
+    if (id.contains('paratha') ||
+        id.contains('ruti') ||
+        id.contains('bread') ||
+        id.contains('biscuit') ||
+        id.contains('cake')) {
+      return pick([
+        FontAwesomeIcons.breadSlice,
+        FontAwesomeIcons.pizzaSlice,
+        FontAwesomeIcons.cookie,
+        FontAwesomeIcons.stroopwafel,
+      ]);
     }
 
-    // === VEGETABLES ===
-    if (id.contains('vorta')) return FontAwesomeIcons.mortarPestle; // Mashed
-    if (id.contains('shak') || id.contains('leaf')) {
-      return FontAwesomeIcons.leaf; // Leafy
-    }
-    if (id.contains('begun')) return FontAwesomeIcons.seedling; // Eggplantish
-    if (id.contains('alu') || id.contains('potato')) {
-      return FontAwesomeIcons.cookie; // Round vegetable
-    }
-    if (id.contains('dal')) return FontAwesomeIcons.mugHot; // Soup
-    if (id.contains('vaji') ||
+    // === VEGETABLES & DAL ===
+    if (id.contains('vorta') ||
+        id.contains('shak') ||
         id.contains('veg') ||
+        id.contains('vaji') ||
+        id.contains('dal') ||
         id.contains('lau') ||
         id.contains('kumra') ||
-        id.contains('kopi')) {
-      return FontAwesomeIcons.carrot;
+        id.contains('kopi') ||
+        id.contains('alu') ||
+        id.contains('potato')) {
+      return pick([
+        FontAwesomeIcons.leaf,
+        FontAwesomeIcons.seedling,
+        FontAwesomeIcons.carrot,
+        FontAwesomeIcons.pepperHot,
+        FontAwesomeIcons.lemon,
+        FontAwesomeIcons.mortarPestle,
+        FontAwesomeIcons.mugHot,
+      ]);
     }
 
     // === DESSERT ===
     if (id.contains('halua') || id.contains('misti') || id.contains('shemai')) {
-      return FontAwesomeIcons.iceCream;
+      return pick([
+        FontAwesomeIcons.iceCream,
+        FontAwesomeIcons.cookieBite,
+        FontAwesomeIcons.bowlFood,
+      ]);
     }
 
     return FontAwesomeIcons.utensils;

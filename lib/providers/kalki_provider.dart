@@ -62,6 +62,23 @@ class KalKiProvider extends ChangeNotifier {
     return ing.name;
   }
 
+  String getRoutineItemName(RoutineItem item) {
+    // 1. Try lookup by ingredientKey if available
+    if (item.ingredientKey != null) {
+      final ing = _dataManager.ingredients[item.ingredientKey!];
+      if (ing != null) {
+        return getIngredientName(ing);
+      }
+    }
+
+    // 2. Fallback to original id lookup
+    final ing = _dataManager.ingredients[item.id];
+    if (ing != null) {
+      return getIngredientName(ing);
+    }
+    return item.name;
+  }
+
   // Constructor
   KalKiProvider() {
     loadData();
@@ -106,7 +123,14 @@ class KalKiProvider extends ChangeNotifier {
 
     // Schedule reminders if enabled
     if (_menuReminderEnabled) {
-      NotificationService().scheduleDailyMenuReminder();
+      NotificationService().scheduleDailyMenuReminder(
+        checkTitle: t('menu_check_title'),
+        checkBody: t('menu_check_body'),
+        reminderTitle: t('menu_reminder_title'),
+        reminderBody: t('menu_reminder_body'),
+        lastCallTitle: t('menu_last_call_title'),
+        lastCallBody: t('menu_last_call_body'),
+      );
     }
   }
 
@@ -170,31 +194,44 @@ class KalKiProvider extends ChangeNotifier {
     if (!_dataManager.isLoaded) return;
     if (_currentPlan != null && _isPlanLocked) return;
 
-    final random = Random();
-
     // 1. Pick Main Dish
     final mainDishes = _dataManager.getDishesBySlot('MAIN');
-    Dish mainDish = mainDishes.isNotEmpty
-        ? mainDishes[random.nextInt(mainDishes.length)]
-        : _getFallbackDish('main');
+    Dish mainDish = _pickSeasonalDish(mainDishes, 'main');
+    final Set<String> pickedIds = {mainDish.id};
 
     // 2. Pick Side Dish
-    final sideDishes = _dataManager.getDishesBySlot('SIDE');
-    Dish sideDish = sideDishes.isNotEmpty
-        ? sideDishes[random.nextInt(sideDishes.length)]
-        : _getFallbackDish('side');
+    final sideDishes = _dataManager
+        .getDishesBySlot('SIDE')
+        .where((d) => !pickedIds.contains(d.id))
+        .toList();
+    Dish sideDish = _pickSeasonalDish(
+      sideDishes.isEmpty ? _dataManager.getDishesBySlot('SIDE') : sideDishes,
+      'side',
+    );
+    pickedIds.add(sideDish.id);
 
     // 3. Pick Breakfast
-    final breakfastDishes = _dataManager.getDishesBySlot('BREAKFAST');
-    Dish breakfastDish = breakfastDishes.isNotEmpty
-        ? breakfastDishes[random.nextInt(breakfastDishes.length)]
-        : _getFallbackDish('breakfast');
+    final breakfastDishes = _dataManager
+        .getDishesBySlot('BREAKFAST')
+        .where((d) => !pickedIds.contains(d.id))
+        .toList();
+    Dish breakfastDish = _pickSeasonalDish(
+      breakfastDishes.isEmpty
+          ? _dataManager.getDishesBySlot('BREAKFAST')
+          : breakfastDishes,
+      'breakfast',
+    );
+    pickedIds.add(breakfastDish.id);
 
     // 4. Pick Snack
-    final snackDishes = _dataManager.getDishesBySlot('SNACK');
-    Dish snackDish = snackDishes.isNotEmpty
-        ? snackDishes[random.nextInt(snackDishes.length)]
-        : _getFallbackDish('snack');
+    final snackDishes = _dataManager
+        .getDishesBySlot('SNACK')
+        .where((d) => !pickedIds.contains(d.id))
+        .toList();
+    Dish snackDish = _pickSeasonalDish(
+      snackDishes.isEmpty ? _dataManager.getDishesBySlot('SNACK') : snackDishes,
+      'snack',
+    );
 
     _currentPlan = DailyPlan(
       date: DateTime.now().add(const Duration(days: 1)),
@@ -237,6 +274,56 @@ class KalKiProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Dish _pickSeasonalDish(List<Dish> candidates, String fallbackType) {
+    if (candidates.isEmpty) return _getFallbackDish(fallbackType);
+
+    final random = Random();
+    final currentMonth = DateTime.now().month;
+
+    // Calculate weights based on seasonality score using map
+    // Score 3 (High) -> Weight 10
+    // Score 2 (Mid) -> Weight 4
+    // Score 1 (Low) -> Weight 1
+    // Score 0 (Unknown) -> Weight 5
+    final Map<Dish, int> dishWeights = {};
+    int totalWeight = 0;
+
+    for (var dish in candidates) {
+      int score = _dataManager.getSeasonalityScore(dish, currentMonth);
+      int weight;
+      switch (score) {
+        case 3:
+          weight = 10;
+          break;
+        case 2:
+          weight = 4;
+          break;
+        case 1:
+          weight = 1;
+          break;
+        default:
+          weight = 5;
+          break;
+      }
+      dishWeights[dish] = weight;
+      totalWeight += weight;
+    }
+
+    if (totalWeight == 0) return candidates[random.nextInt(candidates.length)];
+
+    int r = random.nextInt(totalWeight);
+    int runningSum = 0;
+
+    for (var dish in candidates) {
+      runningSum += dishWeights[dish]!;
+      if (r < runningSum) {
+        return dish;
+      }
+    }
+
+    return candidates.last;
+  }
+
   Dish _getFallbackDish(String type) {
     return Dish(
       id: 'fallback_$type',
@@ -277,7 +364,9 @@ class KalKiProvider extends ChangeNotifier {
     if (value) {
       // Schedule notifications with current frequency
       await NotificationService().scheduleWaterReminders(
-        _waterReminderFrequency,
+        hours: _waterReminderFrequency,
+        title: t('water_title'),
+        body: t('water_body'),
       );
     } else {
       // Cancel water reminders only
@@ -292,7 +381,11 @@ class KalKiProvider extends ChangeNotifier {
 
     // Reschedule if reminder is enabled
     if (_waterReminderEnabled) {
-      await NotificationService().scheduleWaterReminders(hours);
+      await NotificationService().scheduleWaterReminders(
+        hours: hours,
+        title: t('water_title'),
+        body: t('water_body'),
+      );
     }
   }
 
@@ -302,7 +395,14 @@ class KalKiProvider extends ChangeNotifier {
     notifyListeners();
 
     if (value) {
-      await NotificationService().scheduleDailyMenuReminder();
+      await NotificationService().scheduleDailyMenuReminder(
+        checkTitle: t('menu_check_title'),
+        checkBody: t('menu_check_body'),
+        reminderTitle: t('menu_reminder_title'),
+        reminderBody: t('menu_reminder_body'),
+        lastCallTitle: t('menu_last_call_title'),
+        lastCallBody: t('menu_last_call_body'),
+      );
     } else {
       await NotificationService().cancelMenuReminder();
     }
@@ -355,13 +455,11 @@ class KalKiProvider extends ChangeNotifier {
 
     // Map to names, filtering out essentials
     // "FOR TOMORROW" excludes items that are in the essentials/pantry list
-    // Extract essential names for comparison
-    final essentialNames = _dataManager.essentialItems
-        .map((e) => e.name)
-        .toSet();
+    // Extract essential KEYS for comparison (since e.key is the ID)
+    final essentialKeys = _dataManager.essentialItems.map((e) => e.id).toSet();
 
     final filtered = allIngredients.where((e) {
-      return !essentialNames.contains(e.key);
+      return !essentialKeys.contains(e.key);
     }).toList();
 
     return filtered
@@ -372,15 +470,65 @@ class KalKiProvider extends ChangeNotifier {
           // Apply multiplier to quantity hint if it exists
           if (e.qtyHint != null && multiplier > 1) {
             final multipliedQty = _multiplyQuantity(e.qtyHint!, multiplier);
-            return "$name ($multipliedQty)";
+            return "$name (${localizeText(multipliedQty)})";
           } else if (e.qtyHint != null) {
-            return "$name (${e.qtyHint})";
+            return "$name (${localizeText(e.qtyHint!)})";
           } else {
             return name;
           }
         })
         .toSet()
         .toList();
+  }
+
+  /// Helper to localize text (digits and units): "500g" -> "৫০০ গ্রাম" if in Bangla mode
+  String localizeText(String input) {
+    if (!_isBangla) return input;
+
+    // First localize digits
+    String result = input
+        .replaceAll('0', '০')
+        .replaceAll('1', '১')
+        .replaceAll('2', '২')
+        .replaceAll('3', '৩')
+        .replaceAll('4', '৪')
+        .replaceAll('5', '৫')
+        .replaceAll('6', '৬')
+        .replaceAll('7', '৭')
+        .replaceAll('8', '৮')
+        .replaceAll('9', '৯');
+
+    // Localize common units (sorted by length to avoid partial replacements)
+    final units = [
+      {'en': 'optional', 'bn': 'ঐচ্ছিক'},
+      {'en': 'to taste', 'bn': 'স্বাদমতো'},
+      {'en': 'as needed', 'bn': 'প্রয়োজনমতো'},
+      {'en': 'packets', 'bn': 'প্যাকেট'},
+      {'en': 'packet', 'bn': 'প্যাকেট'},
+      {'en': 'slices', 'bn': 'পিস'},
+      {'en': 'slice', 'bn': 'পিস'},
+      {'en': 'bulbs', 'bn': 'টি'},
+      {'en': 'bulb', 'bn': 'টি'},
+      {'en': 'packs', 'bn': 'প্যাকেট'},
+      {'en': 'pack', 'bn': 'প্যাকেট'},
+      {'en': 'cups', 'bn': 'কাপ'},
+      {'en': 'cup', 'bn': 'কাপ'},
+      {'en': 'tbsp', 'bn': 'চামচ'},
+      {'en': 'pods', 'bn': 'কোয়া'},
+      {'en': 'pod', 'bn': 'কোয়া'},
+      {'en': 'pcs', 'bn': 'টি'},
+      {'en': 'pc', 'bn': 'টি'},
+      {'en': 'tsp', 'bn': 'চা চামচ'},
+      {'en': 'pinch', 'bn': 'চিমটি'},
+      {'en': 'kg', 'bn': 'কেজি'},
+      {'en': 'g', 'bn': 'গ্রাম'},
+    ];
+
+    for (var unit in units) {
+      result = result.replaceAll(unit['en']!, unit['bn']!);
+    }
+
+    return result;
   }
 
   /// Helper to multiply quantity strings like "500g" -> "1500g" (with multiplier=3)
@@ -404,8 +552,8 @@ class KalKiProvider extends ChangeNotifier {
       }
     }
 
-    // Fallback if we can't parse: just append multiplier
-    return '$qtyHint ×$multiplier';
+    // Fallback if we can't parse: just return original (caller will localize if needed)
+    return qtyHint;
   }
 
   /// Generates a compact shopping preview string for HomeScreen
@@ -424,12 +572,10 @@ class KalKiProvider extends ChangeNotifier {
       _dataManager.getIngredientsForDish(_currentPlan!.sideDish),
     );
 
-    // Filter out essentials - fix: extract essential names first
-    final essentialNames = _dataManager.essentialItems
-        .map((e) => e.name)
-        .toSet();
+    // Filter out essentials - fix: extract essential KEYS first
+    final essentialKeys = _dataManager.essentialItems.map((e) => e.id).toSet();
     final filtered = allIngredients.where((e) {
-      return !essentialNames.contains(e.key);
+      return !essentialKeys.contains(e.key);
     }).toList();
 
     // Show main dish name with item count
@@ -438,6 +584,7 @@ class KalKiProvider extends ChangeNotifier {
       return mainDishName;
     }
 
-    return '$mainDishName • $itemCount ${itemCount == 1 ? "item" : "items"}';
+    final itmStr = _isBangla ? 'টি আইটেম' : (itemCount == 1 ? "item" : "items");
+    return '$mainDishName • ${localizeText(itemCount.toString())} $itmStr';
   }
 }

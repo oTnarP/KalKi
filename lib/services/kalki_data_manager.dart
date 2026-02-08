@@ -8,7 +8,7 @@ class KalkiDataManager {
   factory KalkiDataManager() => _instance;
   KalkiDataManager._internal();
 
-  AppConfig? appConfig;
+  // AppConfig? appConfig; // Remvoed
   List<Dish> dishes = [];
   Map<String, Ingredient> ingredients = {};
   Set<String> essentials = {};
@@ -23,12 +23,8 @@ class KalkiDataManager {
   Future<void> loadAllData() async {
     if (_isLoaded) return;
 
-    // Load App Config
-    debugPrint("Loading app config...");
-    final configString = await rootBundle.loadString(
-      'assets/kalki_app_config.json',
-    );
-    appConfig = AppConfig.fromJson(jsonDecode(configString));
+    // Load App Config - REMOVED (Unused)
+    // appConfig = AppConfig.fromJson(jsonDecode(configString));
 
     // Load Ingredients
     debugPrint("Loading ingredients...");
@@ -87,6 +83,7 @@ class KalkiDataManager {
           RoutineItem(
             id: e['key'] ?? e['ingredientKey'],
             name: e['name'] ?? 'Unknown',
+            ingredientKey: e['ingredientKey'],
             isStarred: e['defaultStarred'] ?? false,
           ),
         );
@@ -157,10 +154,48 @@ class KalkiDataManager {
     return allIngredients;
   }
 
-  int getSeasonalityScore(String key, int month) {
-    // Check dish overrides first if key is a dish id?
-    // Actually this method probably needs to know if it's looking up an ingredient or a dish override.
-    // Use explicit maps for clarity.
-    return 0;
+  int getSeasonalityScore(Dish dish, int month) {
+    // 1. Check for explicit dish override
+    if (dishSeasonOverrides.containsKey(dish.id)) {
+      final monthMap = dishSeasonOverrides[dish.id]!;
+      // JSON keys are strings "1", "2"...
+      if (monthMap.containsKey(month.toString())) {
+        return monthMap[month.toString()]!;
+      }
+    }
+
+    // 2. If no override, calculate based on primary ingredients
+    if (dish.primaryIngredients.isEmpty) {
+      return 3; // Default to high score if no ingredients listed (assumed available)
+    }
+
+    int totalScore = 0;
+    int count = 0;
+
+    for (var entry in dish.primaryIngredients) {
+      // Check if this ingredient has seasonality data
+      if (ingredientSeasonality.containsKey(entry.key)) {
+        final monthMap = ingredientSeasonality[entry.key]!;
+        if (monthMap.containsKey(month.toString())) {
+          totalScore += monthMap[month.toString()]!;
+          count++;
+        } else {
+          // Default to full availability if month missing but ingredient present
+          totalScore += 3;
+          count++;
+        }
+      }
+      // If ingredient not in seasonality file, assume it's available year-round (score 3)
+      // e.g. salt, oil, spices might not be in seasonality json but refer to essentials
+      else {
+        totalScore += 3;
+        count++;
+      }
+    }
+
+    if (count == 0) return 3;
+
+    // Return average rounded
+    return (totalScore / count).round();
   }
 }

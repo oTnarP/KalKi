@@ -6,9 +6,6 @@ import 'screens/home_screen.dart';
 import 'providers/kalki_provider.dart';
 import 'services/notification_service.dart';
 
-// Hive imports can be added here once we implement persistence
-// import 'package:hive_flutter/hive_flutter.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -18,9 +15,6 @@ void main() async {
 
   // Initialize notification service
   await NotificationService().initialize();
-
-  // Initialize Hive (for future steps, keeping simple for now)
-  // await Hive.initFlutter();
 
   runApp(
     MultiProvider(
@@ -38,7 +32,7 @@ class KalKiApp extends StatelessWidget {
     return Consumer<KalKiProvider>(
       builder: (context, provider, child) {
         return MaterialApp(
-          title: 'KalKi',
+          title: provider.t('app_name'),
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,

@@ -604,6 +604,7 @@
       { "key": "chicken_roast", "qtyHint": "4 pcs" }
     ]
   },
+
   {
     "id": "dim_korma",
     "name_bn": "ডিম কোরমা + পোলাও",
@@ -616,6 +617,276 @@
       { "key": "egg", "qtyHint": "4" },
       { "key": "polao_rice", "qtyHint": "500g" },
       { "key": "coconut_milk", "qtyHint": "100ml" }
+    ]
+  },
+
+  {
+    "id": "luchi_alur_dom",
+    "name_bn": "লুচি + আলুর দম",
+    "name_en": "Luchi + Alur Dom",
+    "category": "SNACK_HEAVY",
+    "mealSlots": ["SNACK", "BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "atta", "qtyHint": "250g" },
+      { "key": "potato", "qtyHint": "4" },
+      { "key": "oil" }
+    ]
+  },
+  {
+    "id": "alu_paratha",
+    "name_bn": "আলু পরোটা",
+    "name_en": "Alu Paratha",
+    "category": "SNACK_HEAVY",
+    "mealSlots": ["SNACK", "BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "atta", "qtyHint": "250g" },
+      { "key": "potato", "qtyHint": "3" },
+      { "key": "butter" }
+    ]
+  },
+  {
+    "id": "chitoi_vorta",
+    "name_bn": "চিতই পিঠা + ভর্তা",
+    "name_en": "Chitoi Pitha + Vorta",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK", "BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chitoi_pitha", "qtyHint": "4 pcs" },
+      { "key": "mustard_paste" },
+      { "key": "coriander_leaf" }
+    ]
+  },
+  {
+    "id": "singara",
+    "name_bn": "সিঙ্গারা",
+    "name_en": "Singara",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "singara_pack", "qtyHint": "4 pcs" },
+      { "key": "samosa_pack", "qtyHint": "4 pcs" }
+    ]
+  },
+  {
+    "id": "chola_bhuna",
+    "name_bn": "ছোলা ভুনা + মুড়ি",
+    "name_en": "Chola Bhuna + Muri",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_chana", "qtyHint": "200g" },
+      { "key": "muri", "qtyHint": "100g" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "fuchka_chotpoti",
+    "name_bn": "ফুচকা",
+    "name_en": "Fuchka",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "fuchka_shell", "qtyHint": "1 pack" },
+      { "key": "chotpoti_mix", "qtyHint": "1 pack" },
+      { "key": "tamarind" }
+    ]
+  },
+  {
+    "id": "beguni_peyaju",
+    "name_bn": "বেগুনি",
+    "name_en": "Beguni",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "besan", "qtyHint": "200g" },
+      { "key": "eggplant", "qtyHint": "1" },
+      { "key": "khesari_dal", "qtyHint": "100g" },
+      { "key": "oil" }
+    ]
+  },
+  {
+    "id": "veg_roll",
+    "name_bn": "ভেজিটেবল রোল",
+    "name_en": "Vegetable Roll",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "vegetable_roll_frozen", "qtyHint": "4 pcs" },
+      { "key": "sauce" }
+    ]
+  },
+  {
+    "id": "haleem",
+    "name_bn": "হালিম",
+    "name_en": "Haleem",
+    "category": "SNACK_HEAVY",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "haleem_mix", "qtyHint": "1 pack" },
+      { "key": "beef", "qtyHint": "250g" }
+    ]
+  },
+  {
+    "id": "beef_tehari",
+    "name_bn": "বিফ তেহারি",
+    "name_en": "Beef Tehari",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "tags": ["weekend"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "beef", "qtyHint": "500g" },
+      { "key": "polao_rice", "qtyHint": "500g" },
+      { "key": "mustard_oil", "qtyHint": "100ml" }
+    ]
+  },
+  {
+    "id": "lal_shak_vaji",
+    "name_bn": "লাল শাক ভাজি",
+    "name_en": "Lal Shak Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "red_amaranth", "qtyHint": "2 bunches" },
+      { "key": "garlic", "qtyHint": "2 cloves" },
+      { "key": "dried_chili" }
+    ]
+  },
+
+  {
+    "id": "cha_biscuit",
+    "name_bn": "চা + বিস্কুট",
+    "name_en": "Cha + Biscuit",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "tea", "qtyHint": "2 cups" },
+      { "key": "biscuits", "qtyHint": "4-6 pcs" }
+    ]
+  },
+  {
+    "id": "bakarkhani_cha",
+    "name_bn": "বাকরখানি + চা",
+    "name_en": "Bakarkhani + Cha",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK", "BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "bakarkhani", "qtyHint": "4 pcs" },
+      { "key": "tea", "qtyHint": "2 cups" }
+    ]
+  },
+  {
+    "id": "toast_dry_cake",
+    "name_bn": "টোস্ট বিস্কুট",
+    "name_en": "Toast Biscuit",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "toast_biscuit", "qtyHint": "4 pcs" },
+      { "key": "dry_cake", "qtyHint": "4 pcs" },
+      { "key": "tea" }
+    ]
+  },
+  {
+    "id": "jhal_muri",
+    "name_bn": "ঝাল মুড়ি",
+    "name_en": "Jhal Muri",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "muri", "qtyHint": "100g" },
+      { "key": "jhal_muri_mix", "qtyHint": "50g" },
+      { "key": "mustard_oil" },
+      { "key": "green_chili" }
+    ]
+  },
+  {
+    "id": "chanachur_muri",
+    "name_bn": "চানাচুর + মুড়ি",
+    "name_en": "Chanachur + Muri",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "muri", "qtyHint": "100g" },
+      { "key": "chanachur", "qtyHint": "100g" },
+      { "key": "onion" }
+    ]
+  },
+  {
+    "id": "chicken_patties",
+    "name_bn": "চিকেন প্যাটিস",
+    "name_en": "Chicken Patties",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chicken_patties", "qtyHint": "2 pcs" },
+      { "key": "sauce" }
+    ]
+  },
+  {
+    "id": "cake_muffin",
+    "name_bn": "কেক",
+    "name_en": "Cake",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "pound_cake", "qtyHint": "2 slices" },
+      { "key": "muffin", "qtyHint": "2 pcs" }
+    ]
+  },
+  {
+    "id": "bread_butter",
+    "name_bn": "ব্রেড বাটার",
+    "name_en": "Bread + Butter",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK", "BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "bread", "qtyHint": "4 slices" },
+      { "key": "butter", "qtyHint": "20g" },
+      { "key": "jam", "qtyHint": "20g" }
+    ]
+  },
+  {
+    "id": "instant_noodles_snack",
+    "name_bn": "নুডলস (ম্যাগি)",
+    "name_en": "Instant Noodles",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "instant_noodles", "qtyHint": "1 pack" },
+      { "key": "egg", "qtyHint": "1" }
+    ]
+  },
+  {
+    "id": "french_fries",
+    "name_bn": "ফ্রেঞ্চ ফ্রাই",
+    "name_en": "French Fries",
+    "category": "SNACK_LITE",
+    "mealSlots": ["SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "french_fries_frozen", "qtyHint": "200g" },
+      { "key": "oil" },
+      { "key": "sauce" }
     ]
   }
 ]
