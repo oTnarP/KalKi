@@ -146,7 +146,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         Text(
-          DateFormat('d MMM').format(plan.date), // "9 Feb" - Short & Sweet
+          DateFormat(
+            'd MMM',
+            provider.isBangla ? 'bn_BD' : 'en_US',
+          ).format(plan.date), // Locale-aware
           style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w400, // Regular, not bold
@@ -323,7 +326,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              "BREAKFAST",
+                              provider.t('breakfast').toUpperCase(),
                               style: GoogleFonts.poppins(
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
@@ -366,7 +369,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              "SNACK",
+                              provider.t('snack').toUpperCase(),
                               style: GoogleFonts.poppins(
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
@@ -597,8 +600,9 @@ class HomeScreen extends StatelessWidget {
         id.contains('veg') ||
         id.contains('lau') ||
         id.contains('kumra') ||
-        id.contains('kopi'))
+        id.contains('kopi')) {
       return FontAwesomeIcons.carrot;
+    }
 
     // === DESSERT ===
     if (id.contains('halua') || id.contains('misti') || id.contains('shemai')) {
