@@ -41,6 +41,7 @@ class AppTranslations {
       'all_set': "You're all set!",
       'all_done': "All Done!",
       'happy_cooking': "Happy cooking!",
+      'menu_reminder': "Daily Menu Check",
     },
     'bn': {
       'tomorrow_menu': "আগামীকালের মেনু",
@@ -82,6 +83,7 @@ class AppTranslations {
       'all_set': "সব ঠিক আছে!",
       'all_done': "সব শেষ!",
       'happy_cooking': "রান্না উপভোগ করুন!",
+      'menu_reminder': "ডেইলি মেনু চেক",
     },
   };
 }

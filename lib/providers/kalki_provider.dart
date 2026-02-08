@@ -16,9 +16,10 @@ class KalKiProvider extends ChangeNotifier {
   bool _isBangla = false;
   int _guestCount = 0;
 
-  // -- Water Reminder State --
+  // -- Notification State --
   bool _waterReminderEnabled = false;
   int _waterReminderFrequency = 1;
+  bool _menuReminderEnabled = true; // Enabled by default as requested
 
   // -- Market Mode State --
   bool _isMarketMode = false;
@@ -35,6 +36,7 @@ class KalKiProvider extends ChangeNotifier {
   int get guestCount => _guestCount;
   bool get waterReminderEnabled => _waterReminderEnabled;
   int get waterReminderFrequency => _waterReminderFrequency;
+  bool get menuReminderEnabled => _menuReminderEnabled;
   bool get isMarketMode => _isMarketMode;
   Set<String> get checkedItems => _checkedItems;
   bool get isPlanLocked => _isPlanLocked;
@@ -100,6 +102,12 @@ class KalKiProvider extends ChangeNotifier {
     _isPlanLocked = prefs.getBool('isPlanLocked') ?? false;
     _waterReminderEnabled = prefs.getBool('waterReminderEnabled') ?? false;
     _waterReminderFrequency = prefs.getInt('waterReminderFrequency') ?? 1;
+    _menuReminderEnabled = prefs.getBool('menuReminderEnabled') ?? true;
+
+    // Schedule reminders if enabled
+    if (_menuReminderEnabled) {
+      NotificationService().scheduleDailyMenuReminder();
+    }
   }
 
   Future<void> _savePreferences() async {
@@ -110,6 +118,7 @@ class KalKiProvider extends ChangeNotifier {
     await prefs.setBool('isPlanLocked', _isPlanLocked);
     await prefs.setBool('waterReminderEnabled', _waterReminderEnabled);
     await prefs.setInt('waterReminderFrequency', _waterReminderFrequency);
+    await prefs.setBool('menuReminderEnabled', _menuReminderEnabled);
   }
 
   Future<void> _loadSavedPlan() async {
@@ -271,8 +280,8 @@ class KalKiProvider extends ChangeNotifier {
         _waterReminderFrequency,
       );
     } else {
-      // Cancel all notifications
-      await NotificationService().cancelAllReminders();
+      // Cancel water reminders only
+      await NotificationService().cancelWaterReminders();
     }
   }
 
@@ -284,6 +293,18 @@ class KalKiProvider extends ChangeNotifier {
     // Reschedule if reminder is enabled
     if (_waterReminderEnabled) {
       await NotificationService().scheduleWaterReminders(hours);
+    }
+  }
+
+  void toggleMenuReminder(bool value) async {
+    _menuReminderEnabled = value;
+    _savePreferences();
+    notifyListeners();
+
+    if (value) {
+      await NotificationService().scheduleDailyMenuReminder();
+    } else {
+      await NotificationService().cancelMenuReminder();
     }
   }
 

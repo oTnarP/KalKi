@@ -9,8 +9,24 @@ import '../models/models.dart';
 import 'market_mode_screen.dart';
 import '../widgets/manage_bottom_sheet.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../services/notification_service.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Request notification permissions after the first frame (when UI is visible)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      NotificationService().requestPermissions();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +84,7 @@ class HomeScreen extends StatelessWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(
-          Icons.shopping_basket_outlined,
+          Icons.receipt_long_outlined,
           color: AppTheme.primaryColor,
         ),
         onPressed: () {

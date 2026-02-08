@@ -91,92 +91,81 @@ class ManageBottomSheet extends StatelessWidget {
                                 provider.toggleWaterReminder(val),
                             activeTrackColor: AppTheme.primaryColor,
                           ),
-                          AnimatedSize(
-                            duration: const Duration(milliseconds: 200),
-                            child: provider.waterReminderEnabled
-                                ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 16,
+                          if (provider.waterReminderEnabled)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    provider.t('frequency'),
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey,
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          provider.t('frequency'),
-                                          style: const TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.grey,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [1, 2, 3].map((hours) {
+                                      final isSelected =
+                                          provider.waterReminderFrequency ==
+                                          hours;
+                                      return Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 4,
                                           ),
-                                        ),
-                                        const SizedBox(height: 12),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [1, 2, 3].map((hours) {
-                                            final isSelected =
-                                                provider
-                                                    .waterReminderFrequency ==
-                                                hours;
-                                            return Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 4,
-                                                    ),
-                                                child: InkWell(
-                                                  onTap: () => provider
-                                                      .setWaterReminderFrequency(
-                                                        hours,
-                                                      ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 10,
-                                                        ),
-                                                    decoration: BoxDecoration(
-                                                      color: isSelected
-                                                          ? AppTheme
-                                                                .primaryColor
-                                                          : Colors.white,
-                                                      border: Border.all(
-                                                        color: isSelected
-                                                            ? AppTheme
-                                                                  .primaryColor
-                                                            : Colors.grey[300]!,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            8,
-                                                          ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${hours}h',
-                                                        style: TextStyle(
-                                                          color: isSelected
-                                                              ? Colors.white
-                                                              : AppTheme
-                                                                    .textPrimary,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
+                                          child: InkWell(
+                                            onTap: () => provider
+                                                .setWaterReminderFrequency(
+                                                  hours,
+                                                ),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 10,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: isSelected
+                                                    ? AppTheme.primaryColor
+                                                    : Colors
+                                                          .transparent, // Changed to transparent for cleaner look
+                                                border: Border.all(
+                                                  color: isSelected
+                                                      ? AppTheme.primaryColor
+                                                      : Colors.grey[300]!,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  '${hours}h',
+                                                  style: TextStyle(
+                                                    color: isSelected
+                                                        ? Colors.white
+                                                        : AppTheme.textPrimary,
+                                                    fontWeight: isSelected
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
                                                   ),
                                                 ),
                                               ),
-                                            );
-                                          }).toList(),
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -247,8 +236,12 @@ class ManageBottomSheet extends StatelessWidget {
                             provider.isDarkMode,
                             (val) => provider.toggleDarkMode(val),
                           ),
+                          _buildSwitchTile(
+                            provider.t('menu_reminder'),
+                            provider.menuReminderEnabled,
+                            (val) => provider.toggleMenuReminder(val),
+                          ),
                           const SizedBox(height: 16),
-                          // Language toggle removed from here
                         ],
                       ),
                     ],
