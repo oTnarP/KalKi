@@ -1,136 +1,205 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-import '../models/kalki_models.dart';
-import '../translations.dart';
+import '../models/models.dart';
+import '../services/kalki_data_manager.dart';
+import '../services/notification_service.dart';
+import '../translations.dart'; // Ensure this exists or mock it if it was deleted (it wasn't)
 
 class KalKiProvider extends ChangeNotifier {
-  // Mock Data
-  final List<Dish> _allDishes = [
-    Dish(
-      id: '1',
-      name: 'Beef Bhuna',
-      category: DishCategory.beef,
-      ingredients: [
-        IngredientItem(name: 'Beef', qtyHint: '500g'),
-        IngredientItem(name: 'Onion'),
-      ],
-    ),
-    Dish(
-      id: '2',
-      name: 'Chicken Curry',
-      category: DishCategory.chicken,
-      ingredients: [
-        IngredientItem(name: 'Chicken', qtyHint: '1kg'),
-        IngredientItem(name: 'Potato'),
-      ],
-    ),
-    Dish(
-      id: '3',
-      name: 'Rui Fish Fry',
-      category: DishCategory.fish,
-      ingredients: [IngredientItem(name: 'Rui Fish', qtyHint: '2 pcs')],
-    ),
-    Dish(
-      id: '4',
-      name: 'Lal Shak',
-      category: DishCategory.vegetable,
-      ingredients: [IngredientItem(name: 'Lal Shak', qtyHint: '2 bundles')],
-    ),
-    Dish(
-      id: '5',
-      name: 'Dal Butter Fry',
-      category: DishCategory.lentil,
-      ingredients: [IngredientItem(name: 'Lentils', qtyHint: '1 cup')],
-    ),
-    Dish(
-      id: '6',
-      name: 'Dim Bhaji',
-      category: DishCategory.egg,
-      ingredients: [IngredientItem(name: 'Egg', qtyHint: '2 pcs')],
-    ),
-    Dish(
-      id: '7',
-      name: 'Singara',
-      category: DishCategory.vegetable,
-      ingredients: [IngredientItem(name: 'Singara', qtyHint: '2 pcs')],
-    ),
-  ];
+  final KalkiDataManager _dataManager = KalkiDataManager();
+  DailyPlan? _currentPlan;
+  bool _isLoading = true;
 
-  final List<RoutineItem> _essentials = [
-    RoutineItem(id: 'e1', name: 'Rice', isStarred: true),
-    RoutineItem(id: 'e2', name: 'Oil', isStarred: true),
-    RoutineItem(id: 'e3', name: 'Salt'),
-    RoutineItem(id: 'e4', name: 'Onion', isStarred: true),
-    RoutineItem(id: 'e5', name: 'Chili'),
-    RoutineItem(id: 'e6', name: 'Toothpaste'),
-    RoutineItem(id: 'e7', name: 'Soap'),
-  ];
+  // -- UI State --
+  bool _isDarkMode = false;
+  bool _isBangla = false;
+  int _guestCount = 0;
 
-  late DayPlan _tomorrowPlan;
+  // -- Water Reminder State --
+  bool _waterReminderEnabled = false;
+  int _waterReminderFrequency = 1;
 
-  // Market Mode State
+  // -- Market Mode State --
   bool _isMarketMode = false;
   final Set<String> _checkedItems = {};
 
-  // Water Reminder State
-  bool _waterReminderEnabled = false;
-  int _waterReminderFrequency = 1; // Hours
+  // -- Plan Lock State --
+  bool _isPlanLocked = false;
 
-  // New Features State
-  int _guestCount = 0;
-  bool _isDarkMode = false;
-  bool _isBangla = false;
-
-  KalKiProvider() {
-    _generateTomorrowPlan();
-  }
-
-  DayPlan get tomorrowPlan => _tomorrowPlan;
-  List<RoutineItem> get essentials => _essentials;
-  bool get isMarketMode => _isMarketMode;
-  Set<String> get checkedItems => _checkedItems;
-  bool get waterReminderEnabled => _waterReminderEnabled;
-  int get waterReminderFrequency => _waterReminderFrequency;
-  int get guestCount => _guestCount;
+  // -- Getters --
+  DailyPlan? get currentPlan => _currentPlan;
+  bool get isLoading => _isLoading;
   bool get isDarkMode => _isDarkMode;
   bool get isBangla => _isBangla;
+  int get guestCount => _guestCount;
+  bool get waterReminderEnabled => _waterReminderEnabled;
+  int get waterReminderFrequency => _waterReminderFrequency;
+  bool get isMarketMode => _isMarketMode;
+  Set<String> get checkedItems => _checkedItems;
+  bool get isPlanLocked => _isPlanLocked;
 
-  void _generateTomorrowPlan() {
-    // Simple mock logic: Randomly pick lunch and dinner
-    _tomorrowPlan = DayPlan(
+  List<RoutineItem> get essentials => _dataManager.essentialItems;
+
+  // -- Translation Helpers --
+  String t(String key) {
+    final code = _isBangla ? 'bn' : 'en';
+    return AppTranslations.localizedValues[code]?[key] ?? key;
+  }
+
+  String getDishName(Dish dish) {
+    String name = _isBangla ? dish.nameBn : dish.nameEn;
+    // Remove content inside parentheses (e.g., "Eggplant (Begun)" -> "Eggplant")
+    return name.replaceAll(RegExp(r'\s*\(.*?\)'), '').trim();
+  }
+
+  String getIngredientName(Ingredient ing) {
+    if (_isBangla && ing.nameBn != null && ing.nameBn!.isNotEmpty) {
+      return ing.nameBn!;
+    }
+    return ing.name;
+  }
+
+  // Constructor
+  KalKiProvider() {
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      await _dataManager.loadAllData();
+      generateDailyPlan();
+    } catch (e) {
+      debugPrint("Error loading data: $e");
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  void generateDailyPlan() {
+    if (!_dataManager.isLoaded || _isPlanLocked) return;
+
+    final random = Random();
+
+    // 1. Pick Main Dish
+    final mainDishes = _dataManager.getDishesBySlot('MAIN');
+    Dish mainDish = mainDishes.isNotEmpty
+        ? mainDishes[random.nextInt(mainDishes.length)]
+        : _getFallbackDish('main');
+
+    // 2. Pick Side Dish
+    final sideDishes = _dataManager.getDishesBySlot('SIDE');
+    Dish sideDish = sideDishes.isNotEmpty
+        ? sideDishes[random.nextInt(sideDishes.length)]
+        : _getFallbackDish('side');
+
+    // 3. Pick Breakfast
+    final breakfastDishes = _dataManager.getDishesBySlot('BREAKFAST');
+    Dish breakfastDish = breakfastDishes.isNotEmpty
+        ? breakfastDishes[random.nextInt(breakfastDishes.length)]
+        : _getFallbackDish('breakfast');
+
+    // 4. Pick Snack
+    final snackDishes = _dataManager.getDishesBySlot('SNACK');
+    Dish snackDish = snackDishes.isNotEmpty
+        ? snackDishes[random.nextInt(snackDishes.length)]
+        : _getFallbackDish('snack');
+
+    _currentPlan = DailyPlan(
       date: DateTime.now().add(const Duration(days: 1)),
-      lunch: _allDishes[0], // Beef Bhuna
-      dinner: _allDishes[0], // Beef Bhuna (Same as Lunch)
-      snack: _allDishes[6], // Singara
+      mainDish: mainDish,
+      sideDish: sideDish,
+      breakfast: breakfastDish,
+      snack: snackDish,
     );
+
+    notifyListeners();
+  }
+
+  void togglePlanLock() {
+    _isPlanLocked = !_isPlanLocked;
     notifyListeners();
   }
 
   void regeneratePlan() {
-    if (_tomorrowPlan.isLocked) return;
-
-    // Rotate dishes for demo
-    var currentLunchIndex = _allDishes.indexOf(_tomorrowPlan.lunch!);
-    var nextLunchIndex = (currentLunchIndex + 1) % _allDishes.length;
-    // Keep Dinner same as Lunch
-    _tomorrowPlan.lunch = _allDishes[nextLunchIndex];
-    _tomorrowPlan.dinner = _allDishes[nextLunchIndex];
-    notifyListeners();
+    generateDailyPlan();
   }
 
   void lockPlan() {
-    _tomorrowPlan.isLocked = true;
+    // Placeholder for locking logic
+    // _currentPlan?.isLocked = true;
     notifyListeners();
   }
 
   void unlockPlan() {
-    _tomorrowPlan.isLocked = false;
+    // Placeholder
+    // _currentPlan?.isLocked = false;
     notifyListeners();
   }
+
+  Dish _getFallbackDish(String type) {
+    return Dish(
+      id: 'fallback_$type',
+      nameBn: 'N/A',
+      nameEn: 'Not Available',
+      category: 'UNKNOWN',
+      mealSlots: [],
+      enabled: false,
+    );
+  }
+
+  // -- UI Methods --
+
+  void toggleDarkMode(bool value) {
+    _isDarkMode = value;
+    notifyListeners();
+  }
+
+  void toggleLanguage(bool value) {
+    _isBangla = value;
+    notifyListeners();
+  }
+
+  void updateGuestCount(int count) {
+    if (count < 0) return;
+    _guestCount = count;
+    notifyListeners();
+  }
+
+  void toggleWaterReminder(bool value) async {
+    _waterReminderEnabled = value;
+    notifyListeners();
+
+    if (value) {
+      // Schedule notifications with current frequency
+      await NotificationService().scheduleWaterReminders(
+        _waterReminderFrequency,
+      );
+    } else {
+      // Cancel all notifications
+      await NotificationService().cancelAllReminders();
+    }
+  }
+
+  void setWaterReminderFrequency(int hours) async {
+    _waterReminderFrequency = hours;
+    notifyListeners();
+
+    // Reschedule if reminder is enabled
+    if (_waterReminderEnabled) {
+      await NotificationService().scheduleWaterReminders(hours);
+    }
+  }
+
+  // -- Market Mode Methods --
 
   void toggleMarketMode() {
     _isMarketMode = !_isMarketMode;
     if (!_isMarketMode) {
-      _checkedItems.clear(); // Reset on exit? Or keep? Reset as per plan F4
+      _checkedItems.clear(); // Reset on exit?
     }
     notifyListeners();
   }
@@ -148,61 +217,127 @@ class KalKiProvider extends ChangeNotifier {
     return _checkedItems.contains(key);
   }
 
-  void toggleWaterReminder(bool value) {
-    _waterReminderEnabled = value;
-    notifyListeners();
-  }
-
-  void setWaterReminderFrequency(int hours) {
-    _waterReminderFrequency = hours;
-    notifyListeners();
-  }
-
-  void updateGuestCount(int count) {
-    if (count < 0) return;
-    _guestCount = count;
-    notifyListeners();
-  }
-
-  void toggleDarkMode(bool value) {
-    _isDarkMode = value;
-    notifyListeners();
-  }
-
-  void toggleLanguage(bool isBangla) {
-    _isBangla = isBangla;
-    notifyListeners();
-  }
-
-  String t(String key) {
-    String langCode = _isBangla ? 'bn' : 'en';
-    return AppTranslations.localizedValues[langCode]?[key] ?? key;
-  }
-
-  // Get specific ingredient list for market
+  /// Generates a list of strings for the shopping list (Market Mode)
   List<String> getGeneratedShoppingList() {
-    final list = <String>[];
-    if (_tomorrowPlan.lunch != null) {
-      list.addAll(
-        _tomorrowPlan.lunch!.ingredients.map(
-          (e) => "${e.name} ${e.qtyHint ?? ''}",
-        ),
-      );
+    if (_currentPlan == null) return [];
+
+    // Calculate multiplier: 1 person + guests
+    final multiplier = 1 + _guestCount;
+
+    // Gather ingredients from all meals
+    final allIngredients = <IngredientEntry>[];
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.mainDish),
+    );
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.sideDish),
+    );
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.breakfast),
+    );
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.snack),
+    );
+
+    // Map to names, filtering out essentials if needed?
+    // Market Mode usually shows everything or maybe excludes essentials?
+    // The original filtered out nothing or maybe logic was different.
+    // Let's filter out essentials that are *starred* or *standard*?
+    // Actually, MarketScreen separates "FOR TOMORROW" from "ESSENTIALS".
+    // So "FOR TOMORROW" should probably exclude essentials that are in the pantry list?
+    // Let's exclude anything in `_dataManager.essentials`.
+
+    final filtered = allIngredients.where((e) {
+      return !_dataManager.essentials.contains(e.key);
+    }).toList();
+
+    return filtered
+        .map((e) {
+          final ing = _dataManager.ingredients[e.key];
+          final name = ing != null ? getIngredientName(ing) : e.key;
+
+          // Apply multiplier to quantity hint if it exists
+          if (e.qtyHint != null && multiplier > 1) {
+            final multipliedQty = _multiplyQuantity(e.qtyHint!, multiplier);
+            return "$name ($multipliedQty)";
+          } else if (e.qtyHint != null) {
+            return "$name (${e.qtyHint})";
+          } else {
+            return name;
+          }
+        })
+        .toSet()
+        .toList();
+  }
+
+  /// Helper to multiply quantity strings like "500g" -> "1500g" (with multiplier=3)
+  String _multiplyQuantity(String qtyHint, int multiplier) {
+    // Try to extract number from the beginning of the string
+    final match = RegExp(r'^(\d+(?:\.\d+)?)\s*(.*)$').firstMatch(qtyHint);
+
+    if (match != null) {
+      final numStr = match.group(1)!;
+      final unit = match.group(2)!;
+
+      // Parse as double, multiply, then format
+      final originalQty = double.tryParse(numStr);
+      if (originalQty != null) {
+        final newQty = originalQty * multiplier;
+        // Format nicely (remove .0 if whole number)
+        final formatted = newQty % 1 == 0
+            ? newQty.toInt().toString()
+            : newQty.toString();
+        return '$formatted$unit';
+      }
     }
-    if (_tomorrowPlan.dinner != null) {
-      list.addAll(
-        _tomorrowPlan.dinner!.ingredients.map(
-          (e) => "${e.name} ${e.qtyHint ?? ''}",
-        ),
-      );
+
+    // Fallback if we can't parse: just append multiplier
+    return '$qtyHint ×$multiplier';
+  }
+
+  /// Generates a compact shopping preview string for HomeScreen
+  String getShoppingPreview() {
+    if (_currentPlan == null) return '';
+
+    // Calculate multiplier: 1 person + guests
+    final multiplier = 1 + _guestCount;
+
+    // Gather ingredients from Main + Side
+    final allIngredients = <IngredientEntry>[];
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.mainDish),
+    );
+    allIngredients.addAll(
+      _dataManager.getIngredientsForDish(_currentPlan!.sideDish),
+    );
+
+    // Filter out essentials
+    final filtered = allIngredients.where((e) {
+      return !_dataManager.essentials.contains(e.key);
+    }).toList();
+
+    if (filtered.isEmpty) return t('check_pantry');
+
+    // Build preview with calculated quantities
+    final items = <String>[];
+    for (var entry in filtered.take(2)) {
+      final ing = _dataManager.ingredients[entry.key];
+      final name = ing != null ? getIngredientName(ing) : entry.key;
+
+      if (entry.qtyHint != null && multiplier > 1) {
+        final calculated = _multiplyQuantity(entry.qtyHint!, multiplier);
+        items.add('$name ($calculated)');
+      } else if (entry.qtyHint != null) {
+        items.add('$name (${entry.qtyHint})');
+      } else {
+        items.add(name);
+      }
     }
-    if (_tomorrowPlan.snack != null) {
-      list.addAll(
-        _tomorrowPlan.snack!.ingredients.map(
-          (e) => "${e.name} ${e.qtyHint ?? ''}",
-        ),
-      );
-    }
-    return list.toSet().toList(); // Unique items
+
+    final remaining = filtered.length - items.length;
+    final itemsText = items.join('\n');
+    final suffix = remaining > 0 ? '\n+ $remaining ${t('more_items')}' : '';
+
+    return '$itemsText$suffix';
   }
 }

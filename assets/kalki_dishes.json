@@ -1,0 +1,621 @@
+[
+  {
+    "id": "paratha_omelet",
+    "name_bn": "পরোটা + ডিম ভাজা",
+    "name_en": "Paratha + Omelet",
+    "category": "BREAKFAST_RUTI",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "2" },
+      { "key": "atta", "qtyHint": "250g" },
+      { "key": "oil" }
+    ]
+  },
+  {
+    "id": "paratha_vaji",
+    "name_bn": "পরোটা + সবজি",
+    "name_en": "Paratha + Mix Veg",
+    "category": "BREAKFAST_RUTI",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "mixed_veg", "qtyHint": "250g" },
+      { "key": "atta", "qtyHint": "250g" }
+    ]
+  },
+  {
+    "id": "khichuri_bhuna",
+    "name_bn": "ভুনা খিচুড়ি",
+    "name_en": "Bhuna Khichuri",
+    "category": "BREAKFAST_RICE",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "rice", "qtyHint": "250g" },
+      { "key": "lentil_masoor", "qtyHint": "100g" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "bhat_bhaja",
+    "name_bn": "ভাত ভাজা",
+    "name_en": "Fried Rice",
+    "category": "BREAKFAST_RICE",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "rice", "qtyHint": "2 cups" },
+      { "key": "egg", "qtyHint": "2" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "sujir_halua_ruti",
+    "name_bn": "সুজির হালুয়া + রুটি",
+    "name_en": "Sujir Halua + Ruti",
+    "category": "BREAKFAST_SWEET",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "suji", "qtyHint": "100g" },
+      { "key": "sugar", "qtyHint": "50g" },
+      { "key": "atta", "qtyHint": "250g" }
+    ]
+  },
+  {
+    "id": "buter_halua",
+    "name_bn": "বুটের হালুয়া + রুটি",
+    "name_en": "Buter Halua + Ruti",
+    "category": "BREAKFAST_SWEET",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_chana", "qtyHint": "150g" },
+      { "key": "sugar", "qtyHint": "100g" },
+      { "key": "atta", "qtyHint": "250g" }
+    ]
+  },
+  {
+    "id": "buter_daal_vuna",
+    "name_bn": "বুটের ডাল + রুটি",
+    "name_en": "Buter Dal + Ruti",
+    "category": "BREAKFAST_RUTI",
+    "mealSlots": ["BREAKFAST"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_chana", "qtyHint": "150g" },
+      { "key": "onion", "qtyHint": "2" },
+      { "key": "atta", "qtyHint": "250g" }
+    ]
+  },
+  {
+    "id": "noodles_egg",
+    "name_bn": "এগ নুডলস",
+    "name_en": "Egg Noodles",
+    "category": "BREAKFAST_RUTI",
+    "mealSlots": ["BREAKFAST", "SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "instant_noodles", "qtyHint": "2 packs" },
+      { "key": "egg", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "bread_jelly",
+    "name_bn": "পাউরুটি + জেলি",
+    "name_en": "Bread + Jelly",
+    "category": "BREAKFAST_RUTI",
+    "mealSlots": ["BREAKFAST", "SNACK"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "bread", "qtyHint": "4 slices" },
+      { "key": "jelly", "qtyHint": "50g" }
+    ]
+  },
+
+  {
+    "id": "ilish_shorshe",
+    "name_bn": "সরিষা ইলিশ",
+    "name_en": "Shorshe Ilish",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "ilish_fish", "qtyHint": "4 pcs" },
+      { "key": "mustard_paste", "qtyHint": "2 tbsp" },
+      { "key": "green_chili", "qtyHint": "4" }
+    ]
+  },
+  {
+    "id": "ilish_bhaja",
+    "name_bn": "ইলিশ ভাজা",
+    "name_en": "Fried Ilish",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "ilish_fish", "qtyHint": "4 pcs" },
+      { "key": "mustard_oil" }
+    ]
+  },
+  {
+    "id": "rui_fish_bhuna",
+    "name_bn": "রুই ভুনা",
+    "name_en": "Rui Bhuna",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "rui_fish", "qtyHint": "500g" },
+      { "key": "onion", "qtyHint": "4" }
+    ]
+  },
+  {
+    "id": "rui_fish_bhaja",
+    "name_bn": "রুই ভাজা",
+    "name_en": "Rui Fish Fry",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "rui_fish", "qtyHint": "4 pcs" },
+      { "key": "turmeric" },
+      { "key": "oil" }
+    ]
+  },
+  {
+    "id": "chingri_bhuna",
+    "name_bn": "চিংড়ি ভুনা",
+    "name_en": "Chingri Bhuna",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chingri", "qtyHint": "250g" },
+      { "key": "onion", "qtyHint": "4" }
+    ]
+  },
+  {
+    "id": "chingri_malaikari",
+    "name_bn": "চিংড়ি মালাইকারি",
+    "name_en": "Chingri Malaikari",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chingri", "qtyHint": "250g" },
+      { "key": "coconut_milk", "qtyHint": "200ml" }
+    ]
+  },
+  {
+    "id": "shutki_vuna_loitta",
+    "name_bn": "লইট্টা শুটকি",
+    "name_en": "Loitta Shutki",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "loitta_shutki", "qtyHint": "100g" },
+      { "key": "garlic", "qtyHint": "2 bulbs" },
+      { "key": "onion", "qtyHint": "4" }
+    ]
+  },
+  {
+    "id": "shutki_vuna_chepa",
+    "name_bn": "চেপা শুটকি",
+    "name_en": "Chepa Shutki",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chepa_shutki", "qtyHint": "50g" },
+      { "key": "garlic", "qtyHint": "2 bulbs" }
+    ]
+  },
+  {
+    "id": "small_fish_chorchori",
+    "name_bn": "ছোট মাছ চড়চড়ি",
+    "name_en": "Small Fish",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "small_fish", "qtyHint": "250g" },
+      { "key": "potato", "qtyHint": "2" },
+      { "key": "onion", "qtyHint": "3" }
+    ]
+  },
+
+  {
+    "id": "chicken_curry_broiler",
+    "name_bn": "ব্রয়লার কারি",
+    "name_en": "Broiler Curry",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chicken_broiler", "qtyHint": "500g" },
+      { "key": "potato", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "chicken_curry_deshi",
+    "name_bn": "দেশি মুরগি",
+    "name_en": "Deshi Chicken",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chicken_deshi", "qtyHint": "500g" },
+      { "key": "potato", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "beef_bhuna",
+    "name_bn": "বিফ ভুনা",
+    "name_en": "Beef Bhuna",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "beef", "qtyHint": "500g" },
+      { "key": "onion", "qtyHint": "4" },
+      { "key": "garam_masala" }
+    ]
+  },
+  {
+    "id": "mutton_curry",
+    "name_bn": "খাসির মাংস",
+    "name_en": "Mutton Curry",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "mutton", "qtyHint": "500g" },
+      { "key": "potato", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "egg_curry",
+    "name_bn": "ডিম ভুনা",
+    "name_en": "Egg Curry",
+    "category": "MAIN_EGG",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "4" },
+      { "key": "onion", "qtyHint": "3" },
+      { "key": "potato", "qtyHint": "2" }
+    ]
+  },
+
+  {
+    "id": "mixed_veg",
+    "name_bn": "সবজি মিক্স",
+    "name_en": "Mix Veg",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "vegetable_mix", "qtyHint": "500g" },
+      { "key": "panch_phoron" }
+    ]
+  },
+
+  {
+    "id": "alu_vaji",
+    "name_bn": "আলু ভাজি",
+    "name_en": "Alu Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "potato", "qtyHint": "3" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "begun_vaji",
+    "name_bn": "বেগুন ভাজি",
+    "name_en": "Begun Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "eggplant", "qtyHint": "1 large" },
+      { "key": "turmeric" },
+      { "key": "oil" }
+    ]
+  },
+  {
+    "id": "potol_vaji",
+    "name_bn": "পটল ভাজি",
+    "name_en": "Potol Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "pointed_gourd", "qtyHint": "250g" },
+      { "key": "turmeric" }
+    ]
+  },
+  {
+    "id": "dherosh_vaji",
+    "name_bn": "ঢেঁড়স ভাজি",
+    "name_en": "Dherosh Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "okra", "qtyHint": "250g" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "sim_vaji",
+    "name_bn": "শিম ভাজি",
+    "name_en": "Sim Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "flat_beans", "qtyHint": "250g" },
+      { "key": "garlic", "qtyHint": "1 pod" }
+    ]
+  },
+  {
+    "id": "lau_chingri",
+    "name_bn": "লাউ চিংড়ি",
+    "name_en": "Lau Chingri",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "bottle_gourd", "qtyHint": "1 small" },
+      { "key": "chingri", "qtyHint": "100g" }
+    ]
+  },
+  {
+    "id": "kolmi_shak_chingri",
+    "name_bn": "কলমি শাক + চিংড়ি",
+    "name_en": "Kolmi Shak + Chingri",
+    "category": "MAIN_FISH",
+    "mealSlots": ["MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "kolmi_shak", "qtyHint": "1 bunch" },
+      { "key": "chingri", "qtyHint": "50g" },
+      { "key": "garlic", "qtyHint": "2 cloves" }
+    ]
+  },
+  {
+    "id": "misti_kumra_vaji",
+    "name_bn": "কুমড়া ভাজি",
+    "name_en": "Kumra Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "pumpkin", "qtyHint": "300g" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "chingri_misti_kumra",
+    "name_bn": "কুমড়া + চিংড়ি",
+    "name_en": "Kumra + Chingri",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "pumpkin", "qtyHint": "300g" },
+      { "key": "chingri", "qtyHint": "50g" },
+      { "key": "onion", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "fulkopi_vaji",
+    "name_bn": "ফুলকপি ভাজি",
+    "name_en": "Fulkopi Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "cauliflower", "qtyHint": "1 small" },
+      { "key": "potato", "qtyHint": "1" }
+    ]
+  },
+  {
+    "id": "bandhakopi_vaji",
+    "name_bn": "বাঁধাকপি ভাজি",
+    "name_en": "Bandhakopi Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "cabbage", "qtyHint": "1 small" },
+      { "key": "green_peas", "qtyHint": "50g" }
+    ]
+  },
+  {
+    "id": "shak_vaji",
+    "name_bn": "শাক ভাজি",
+    "name_en": "Shak Vaji",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "spinach", "qtyHint": "1 bunch" },
+      { "key": "garlic", "qtyHint": "1 pod" }
+    ]
+  },
+
+  {
+    "id": "masoor_dal",
+    "name_bn": "মসুর ডাল",
+    "name_en": "Masoor Dal",
+    "category": "SIDE_DAL",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_masoor", "qtyHint": "100g" },
+      { "key": "onion", "qtyHint": "1" },
+      { "key": "garlic", "qtyHint": "1 pod" }
+    ]
+  },
+  {
+    "id": "moong_dal",
+    "name_bn": "মুগ ডাল",
+    "name_en": "Moong Dal",
+    "category": "SIDE_DAL",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_moong", "qtyHint": "100g" }
+    ]
+  },
+  {
+    "id": "dherosh_dal",
+    "name_bn": "ডাল + ঢেঁড়স",
+    "name_en": "Dal + Dherosh",
+    "category": "SIDE_DAL",
+    "mealSlots": ["SIDE"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "lentil_masoor", "qtyHint": "100g" },
+      { "key": "okra", "qtyHint": "100g" }
+    ]
+  },
+
+  {
+    "id": "alu_vorta",
+    "name_bn": "আলু ভর্তা",
+    "name_en": "Alu Vorta",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE", "DINNER_ONLY"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "potato", "qtyHint": "3" },
+      { "key": "dried_chili", "qtyHint": "2" },
+      { "key": "mustard_oil" }
+    ]
+  },
+  {
+    "id": "begun_vorta",
+    "name_bn": "বেগুন ভর্তা",
+    "name_en": "Begun Vorta",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE", "DINNER_ONLY"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "eggplant", "qtyHint": "1" },
+      { "key": "dried_chili", "qtyHint": "2" }
+    ]
+  },
+  {
+    "id": "tomato_vorta",
+    "name_bn": "টমেটো ভর্তা",
+    "name_en": "Tomato Vorta",
+    "category": "SIDE_VEG",
+    "mealSlots": ["SIDE", "DINNER_ONLY"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "tomato", "qtyHint": "3" },
+      { "key": "onion", "qtyHint": "1" }
+    ]
+  },
+  {
+    "id": "dim_vorta",
+    "name_bn": "ডিম ভর্তা",
+    "name_en": "Egg Vorta",
+    "category": "SIDE_EGG",
+    "mealSlots": ["SIDE", "DINNER_ONLY"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "2" },
+      { "key": "onion", "qtyHint": "1" },
+      { "key": "mustard_oil" }
+    ]
+  },
+  {
+    "id": "dim_vaji_dinner",
+    "name_bn": "ডিম ভাজা",
+    "name_en": "Omelet",
+    "category": "SIDE_EGG",
+    "mealSlots": ["SIDE", "DINNER_ONLY"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "2" },
+      { "key": "onion", "qtyHint": "1" }
+    ]
+  },
+  {
+    "id": "dim_alu_dal_chorchori",
+    "name_bn": "ডিম আলু ডাল",
+    "name_en": "Dim Alu Dal",
+    "category": "SIDE_DAL",
+    "mealSlots": ["SIDE", "MAIN"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "2" },
+      { "key": "potato", "qtyHint": "2" },
+      { "key": "lentil_masoor", "qtyHint": "50g" }
+    ]
+  },
+
+  {
+    "id": "chicken_biriyani",
+    "name_bn": "চিকেন বিরিয়ানি",
+    "name_en": "Chicken Biriyani",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "tags": ["weekend"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "chicken_broiler", "qtyHint": "500g" },
+      { "key": "rice_basmati", "qtyHint": "500g" },
+      { "key": "curd", "qtyHint": "100g" }
+    ]
+  },
+  {
+    "id": "beef_biriyani",
+    "name_bn": "বিফ বিরিয়ানি",
+    "name_en": "Beef Biriyani",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "tags": ["weekend"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "beef", "qtyHint": "500g" },
+      { "key": "rice_basmati", "qtyHint": "500g" }
+    ]
+  },
+  {
+    "id": "polao_roast",
+    "name_bn": "পোলাও + রোস্ট",
+    "name_en": "Polao + Roast",
+    "category": "MAIN_MEAT",
+    "mealSlots": ["MAIN"],
+    "tags": ["weekend"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "polao_rice", "qtyHint": "500g" },
+      { "key": "chicken_roast", "qtyHint": "4 pcs" }
+    ]
+  },
+  {
+    "id": "dim_korma",
+    "name_bn": "ডিম কোরমা + পোলাও",
+    "name_en": "Dim Korma + Polao",
+    "category": "MAIN_EGG",
+    "mealSlots": ["MAIN"],
+    "tags": ["weekend"],
+    "enabled": true,
+    "primaryIngredients": [
+      { "key": "egg", "qtyHint": "4" },
+      { "key": "polao_rice", "qtyHint": "500g" },
+      { "key": "coconut_milk", "qtyHint": "100ml" }
+    ]
+  }
+]

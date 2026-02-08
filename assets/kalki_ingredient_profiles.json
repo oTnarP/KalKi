@@ -1,0 +1,564 @@
+{
+  "base_fish_jhol": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "green_chili",
+      "qtyHint": "5-8 pcs"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_fish_jhol_tomato": [
+    {
+      "key": "tomato",
+      "qtyHint": "2 pcs"
+    }
+  ],
+  "base_fish_bhuna": [
+    {
+      "key": "onion",
+      "qtyHint": "3 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "coriander_powder"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "garam_masala",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_shorshe": [
+    {
+      "key": "mustard_paste"
+    },
+    {
+      "key": "mustard_oil"
+    },
+    {
+      "key": "green_chili"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    }
+  ],
+  "base_tetul": [
+    {
+      "key": "tamarind"
+    },
+    {
+      "key": "green_chili"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_chingri_malai": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "coconut_milk"
+    },
+    {
+      "key": "garam_masala",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_shutki_bhuna": [
+    {
+      "key": "onion",
+      "qtyHint": "3 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_chicken_jhol": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "potato",
+      "qtyHint": "2 pcs (optional)"
+    }
+  ],
+  "base_chicken_bhuna": [
+    {
+      "key": "onion",
+      "qtyHint": "3 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "coriander_powder"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "garam_masala",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_beef_jhol": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "potato",
+      "qtyHint": "2 pcs (optional)"
+    }
+  ],
+  "base_beef_bhuna": [
+    {
+      "key": "onion",
+      "qtyHint": "3-4 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "red_chili_powder"
+    },
+    {
+      "key": "coriander_powder"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "garam_masala",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_korma": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "yogurt",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "coriander_powder"
+    },
+    {
+      "key": "garam_masala"
+    },
+    {
+      "key": "bay_leaf"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "ghee",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_veg_bhaji": [
+    {
+      "key": "onion",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "green_chili"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_veg_torkari": [
+    {
+      "key": "onion",
+      "qtyHint": "1-2 pcs"
+    },
+    {
+      "key": "garlic",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "cumin",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_veg_labra": [
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "panch_phoron",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_bhorta": [
+    {
+      "key": "onion",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "green_chili"
+    },
+    {
+      "key": "mustard_oil"
+    },
+    {
+      "key": "salt"
+    }
+  ],
+  "base_dal_simple": [
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    }
+  ],
+  "base_dal_tadka": [
+    {
+      "key": "onion",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "garlic"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "cumin",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_salad": [
+    {
+      "key": "cucumber",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "tomato",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "onion",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "lemon",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "salt"
+    }
+  ],
+  "base_khichuri": [
+    {
+      "key": "rice",
+      "qtyHint": "1.5 cups"
+    },
+    {
+      "key": "lentil_moong",
+      "qtyHint": "0.5 cup"
+    },
+    {
+      "key": "onion",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "ginger"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_egg_bhuna": [
+    {
+      "key": "egg",
+      "qtyHint": "2-3 pcs"
+    },
+    {
+      "key": "onion",
+      "qtyHint": "1 pc"
+    },
+    {
+      "key": "green_chili"
+    },
+    {
+      "key": "turmeric"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_omelette": [
+    {
+      "key": "egg",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "onion",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "green_chili",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "salt"
+    },
+    {
+      "key": "oil"
+    }
+  ],
+  "base_tea": [
+    {
+      "key": "tea"
+    },
+    {
+      "key": "sugar",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "milk",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_muri_mix": [
+    {
+      "key": "muri",
+      "qtyHint": "1 pack"
+    },
+    {
+      "key": "chanachur",
+      "qtyHint": "1 pack"
+    },
+    {
+      "key": "lemon",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_ruti": [
+    {
+      "key": "atta"
+    },
+    {
+      "key": "oil",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "salt",
+      "qtyHint": "optional"
+    }
+  ],
+  "base_paratha_egg": [
+    {
+      "key": "frozen_paratha",
+      "qtyHint": "2 pcs"
+    },
+    {
+      "key": "egg",
+      "qtyHint": "1-2 pcs"
+    },
+    {
+      "key": "oil"
+    },
+    {
+      "key": "salt"
+    }
+  ],
+  "base_noodles": [
+    {
+      "key": "instant_noodles",
+      "qtyHint": "1 pack"
+    },
+    {
+      "key": "egg",
+      "qtyHint": "optional"
+    },
+    {
+      "key": "green_chili",
+      "qtyHint": "optional"
+    }
+  ]
+}

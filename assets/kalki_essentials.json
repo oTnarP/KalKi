@@ -1,0 +1,498 @@
+[
+  {
+    "key": "ess_rice",
+    "name": "Rice (chal)",
+    "group": "Cooking basics",
+    "defaultStarred": true,
+    "ingredientKey": "rice"
+  },
+  {
+    "key": "ess_atta",
+    "name": "Atta flour",
+    "group": "Cooking basics",
+    "defaultStarred": true,
+    "ingredientKey": "atta"
+  },
+  {
+    "key": "ess_oil",
+    "name": "Cooking oil",
+    "group": "Cooking basics",
+    "defaultStarred": true,
+    "ingredientKey": "oil"
+  },
+  {
+    "key": "ess_mustard_oil",
+    "name": "Mustard oil",
+    "group": "Cooking basics",
+    "defaultStarred": true,
+    "ingredientKey": "mustard_oil"
+  },
+  {
+    "key": "ess_salt",
+    "name": "Salt",
+    "group": "Cooking basics",
+    "defaultStarred": true,
+    "ingredientKey": "salt"
+  },
+  {
+    "key": "ess_sugar",
+    "name": "Sugar",
+    "group": "Cooking basics",
+    "defaultStarred": false,
+    "ingredientKey": "sugar"
+  },
+  {
+    "key": "ess_turmeric",
+    "name": "Turmeric",
+    "group": "Spices",
+    "defaultStarred": true,
+    "ingredientKey": "turmeric"
+  },
+  {
+    "key": "ess_red_chili_powder",
+    "name": "Red chili powder",
+    "group": "Spices",
+    "defaultStarred": true,
+    "ingredientKey": "red_chili_powder"
+  },
+  {
+    "key": "ess_coriander_powder",
+    "name": "Coriander powder",
+    "group": "Spices",
+    "defaultStarred": true,
+    "ingredientKey": "coriander_powder"
+  },
+  {
+    "key": "ess_cumin",
+    "name": "Cumin",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "cumin"
+  },
+  {
+    "key": "ess_garam_masala",
+    "name": "Garam masala",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "garam_masala"
+  },
+  {
+    "key": "ess_bay_leaf",
+    "name": "Bay leaf",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "bay_leaf"
+  },
+  {
+    "key": "ess_panch_phoron",
+    "name": "Panch phoron",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "panch_phoron"
+  },
+  {
+    "key": "ess_mustard_paste",
+    "name": "Mustard paste",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "mustard_paste"
+  },
+  {
+    "key": "ess_tamarind",
+    "name": "Tamarind",
+    "group": "Spices",
+    "defaultStarred": false,
+    "ingredientKey": "tamarind"
+  },
+  {
+    "key": "ess_onion",
+    "name": "Onion",
+    "group": "Veg basics",
+    "defaultStarred": true,
+    "ingredientKey": "onion"
+  },
+  {
+    "key": "ess_garlic",
+    "name": "Garlic",
+    "group": "Veg basics",
+    "defaultStarred": true,
+    "ingredientKey": "garlic"
+  },
+  {
+    "key": "ess_ginger",
+    "name": "Ginger",
+    "group": "Veg basics",
+    "defaultStarred": true,
+    "ingredientKey": "ginger"
+  },
+  {
+    "key": "ess_green_chili",
+    "name": "Green chili",
+    "group": "Veg basics",
+    "defaultStarred": true,
+    "ingredientKey": "green_chili"
+  },
+  {
+    "key": "ess_potato",
+    "name": "Potato",
+    "group": "Veg basics",
+    "defaultStarred": true,
+    "ingredientKey": "potato"
+  },
+  {
+    "key": "ess_tomato",
+    "name": "Tomato",
+    "group": "Veg basics",
+    "defaultStarred": false,
+    "ingredientKey": "tomato"
+  },
+  {
+    "key": "ess_lemon",
+    "name": "Lemon/Lime",
+    "group": "Veg basics",
+    "defaultStarred": false,
+    "ingredientKey": "lemon"
+  },
+  {
+    "key": "ess_coriander_leaf",
+    "name": "Coriander leaf",
+    "group": "Veg basics",
+    "defaultStarred": false,
+    "ingredientKey": "coriander_leaf"
+  },
+  {
+    "key": "ess_cucumber",
+    "name": "Cucumber",
+    "group": "Veg basics",
+    "defaultStarred": false,
+    "ingredientKey": "cucumber"
+  },
+  {
+    "key": "ess_masoor",
+    "name": "Masoor dal",
+    "group": "Lentils",
+    "defaultStarred": true,
+    "ingredientKey": "lentil_masoor"
+  },
+  {
+    "key": "ess_moong",
+    "name": "Moong dal",
+    "group": "Lentils",
+    "defaultStarred": false,
+    "ingredientKey": "lentil_moong"
+  },
+  {
+    "key": "ess_chana",
+    "name": "Cholar dal",
+    "group": "Lentils",
+    "defaultStarred": false,
+    "ingredientKey": "lentil_chana"
+  },
+  {
+    "key": "ess_egg",
+    "name": "Eggs",
+    "group": "Proteins",
+    "defaultStarred": true,
+    "ingredientKey": "egg"
+  },
+  {
+    "key": "ess_chicken",
+    "name": "Chicken",
+    "group": "Proteins",
+    "defaultStarred": false,
+    "ingredientKey": "chicken"
+  },
+  {
+    "key": "ess_beef",
+    "name": "Beef",
+    "group": "Proteins",
+    "defaultStarred": false,
+    "ingredientKey": "beef"
+  },
+  {
+    "key": "ess_fish_any",
+    "name": "Fish (as needed)",
+    "group": "Proteins",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_bread",
+    "name": "Bread",
+    "group": "Breakfast & quick",
+    "defaultStarred": true,
+    "ingredientKey": "bread"
+  },
+  {
+    "key": "ess_chira",
+    "name": "Chira",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "chira"
+  },
+  {
+    "key": "ess_muri",
+    "name": "Muri",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "muri"
+  },
+  {
+    "key": "ess_frozen_paratha",
+    "name": "Frozen paratha",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "frozen_paratha"
+  },
+  {
+    "key": "ess_instant_noodles",
+    "name": "Instant noodles",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "instant_noodles"
+  },
+  {
+    "key": "ess_milk",
+    "name": "Milk",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "milk"
+  },
+  {
+    "key": "ess_yogurt",
+    "name": "Yogurt",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "yogurt"
+  },
+  {
+    "key": "ess_oats",
+    "name": "Oats",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "oats"
+  },
+  {
+    "key": "ess_banana",
+    "name": "Banana",
+    "group": "Breakfast & quick",
+    "defaultStarred": false,
+    "ingredientKey": "bananas"
+  },
+  {
+    "key": "ess_biscuits",
+    "name": "Biscuits",
+    "group": "Snacks",
+    "defaultStarred": true,
+    "ingredientKey": "biscuits"
+  },
+  {
+    "key": "ess_chanachur",
+    "name": "Chanachur",
+    "group": "Snacks",
+    "defaultStarred": true,
+    "ingredientKey": "chanachur"
+  },
+  {
+    "key": "ess_nuts",
+    "name": "Peanuts/Nuts",
+    "group": "Snacks",
+    "defaultStarred": false,
+    "ingredientKey": "peanuts"
+  },
+  {
+    "key": "ess_singara",
+    "name": "Singara",
+    "group": "Snacks",
+    "defaultStarred": false,
+    "ingredientKey": "singara_pack"
+  },
+  {
+    "key": "ess_samosa",
+    "name": "Samosa",
+    "group": "Snacks",
+    "defaultStarred": false,
+    "ingredientKey": "samosa_pack"
+  },
+  {
+    "key": "ess_tea",
+    "name": "Tea",
+    "group": "Drinks",
+    "defaultStarred": true,
+    "ingredientKey": "tea"
+  },
+  {
+    "key": "ess_coffee",
+    "name": "Coffee",
+    "group": "Drinks",
+    "defaultStarred": false,
+    "ingredientKey": "coffee_sachet"
+  },
+  {
+    "key": "ess_dishwash",
+    "name": "Dishwashing liquid",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_scrubber",
+    "name": "Scrubber/sponge",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_tissue",
+    "name": "Tissue/napkin",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_toilet_tissue",
+    "name": "Toilet tissue",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_floor_cleaner",
+    "name": "Floor cleaner",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_laundry_detergent",
+    "name": "Laundry detergent",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_bleach",
+    "name": "Bleach (optional)",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_trash_bags",
+    "name": "Trash bags",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_air_freshener",
+    "name": "Air freshener",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_mosquito_coil",
+    "name": "Mosquito coil/liquid",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_matchbox",
+    "name": "Matchbox/lighter",
+    "group": "Home & cleaning",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_aluminium_foil",
+    "name": "Aluminium foil",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_zip_bags",
+    "name": "Zip bags",
+    "group": "Home & cleaning",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_soap",
+    "name": "Bath soap",
+    "group": "Personal care",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_shampoo",
+    "name": "Shampoo",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_toothpaste",
+    "name": "Toothpaste",
+    "group": "Personal care",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_toothbrush",
+    "name": "Toothbrush",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_deodorant",
+    "name": "Deodorant",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_razor",
+    "name": "Razor",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_handwash",
+    "name": "Handwash",
+    "group": "Personal care",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_sanitizer",
+    "name": "Hand sanitizer",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_facewash",
+    "name": "Facewash",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_lotion",
+    "name": "Body lotion",
+    "group": "Personal care",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_paracetamol",
+    "name": "Paracetamol",
+    "group": "Emergency",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_ors",
+    "name": "ORS",
+    "group": "Emergency",
+    "defaultStarred": true
+  },
+  {
+    "key": "ess_bandage",
+    "name": "Bandage",
+    "group": "Emergency",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_thermometer",
+    "name": "Thermometer",
+    "group": "Emergency",
+    "defaultStarred": false
+  },
+  {
+    "key": "ess_basic_spices_backup",
+    "name": "Spice backups (small)",
+    "group": "Emergency",
+    "defaultStarred": false
+  }
+]

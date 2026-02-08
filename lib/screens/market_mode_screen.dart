@@ -9,7 +9,7 @@ class MarketModeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Consumer<KalKiProvider>(
         builder: (context, provider, child) {
           final cookingList = provider.getGeneratedShoppingList();
@@ -33,7 +33,13 @@ class MarketModeScreen extends StatelessWidget {
           return SafeArea(
             child: Column(
               children: [
-                _buildCustomHeader(context, pickedCount, totalItems, progress),
+                _buildCustomHeader(
+                  context,
+                  pickedCount,
+                  totalItems,
+                  progress,
+                  provider,
+                ),
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.symmetric(
@@ -42,7 +48,10 @@ class MarketModeScreen extends StatelessWidget {
                     ),
                     children: [
                       if (cookingList.isNotEmpty) ...[
-                        _buildSectionTitle('FOR TOMORROW', Icons.restaurant),
+                        _buildSectionTitle(
+                          provider.t('for_tomorrow'),
+                          Icons.restaurant,
+                        ),
                         const SizedBox(height: 12),
                         ...cookingList.map(
                           (item) => _buildMinimalCheckItem(
@@ -56,7 +65,10 @@ class MarketModeScreen extends StatelessWidget {
                       ],
 
                       if (starredEssentials.isNotEmpty) ...[
-                        _buildSectionTitle('ESSENTIALS', Icons.star_border),
+                        _buildSectionTitle(
+                          provider.t('essentials'),
+                          Icons.star_border,
+                        ),
                         const SizedBox(height: 12),
                         ...starredEssentials.map(
                           (item) => _buildMinimalCheckItem(
@@ -69,7 +81,7 @@ class MarketModeScreen extends StatelessWidget {
                       ],
 
                       if (otherEssentials.isNotEmpty) ...[
-                        _buildSectionTitle('OTHERS', Icons.api),
+                        _buildSectionTitle(provider.t('others'), Icons.api),
                         const SizedBox(height: 12),
                         ...otherEssentials.map(
                           (item) => _buildMinimalCheckItem(
@@ -98,12 +110,17 @@ class MarketModeScreen extends StatelessWidget {
     int picked,
     int total,
     double progress,
+    KalKiProvider provider,
   ) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade100)),
+        color: Theme.of(context).cardColor,
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.shade100.withValues(alpha: 0.1),
+          ),
+        ),
       ),
       child: Column(
         children: [
@@ -112,21 +129,21 @@ class MarketModeScreen extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-                color: Colors.black87,
+                color: Theme.of(context).iconTheme.color,
                 onPressed: () => Navigator.pop(context),
               ),
-              const Text(
-                'Shopping List',
+              Text(
+                provider.t('shopping_list'),
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.textPrimary,
+                  color: Theme.of(context).textTheme.titleLarge?.color,
                 ),
               ),
               const SizedBox(width: 40), // Balance back button
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -134,7 +151,7 @@ class MarketModeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Picked Items',
+                    provider.t('picked_items'),
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -147,16 +164,20 @@ class MarketModeScreen extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: '$picked',
-                          style: const TextStyle(
-                            fontSize: 28,
+                          style: TextStyle(
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: AppTheme.textPrimary,
+                            color:
+                                Theme.of(
+                                  context,
+                                ).textTheme.displaySmall?.color ??
+                                AppTheme.textPrimary,
                           ),
                         ),
                         TextSpan(
                           text: '/$total',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             color: Colors.grey[400],
                             fontWeight: FontWeight.w500,
                           ),
@@ -221,7 +242,9 @@ class MarketModeScreen extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          color: isChecked ? Colors.grey[50] : Colors.white,
+          color: isChecked
+              ? Theme.of(context).disabledColor.withValues(alpha: 0.1)
+              : Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isChecked
@@ -262,7 +285,9 @@ class MarketModeScreen extends StatelessWidget {
                 name,
                 style: TextStyle(
                   fontSize: 16,
-                  color: isChecked ? Colors.grey[400] : AppTheme.textPrimary,
+                  color: isChecked
+                      ? Colors.grey[400]
+                      : Theme.of(context).textTheme.bodyLarge?.color,
                   decoration: isChecked ? TextDecoration.lineThrough : null,
                   decorationColor: Colors.grey[300],
                   fontWeight: FontWeight.w500,
